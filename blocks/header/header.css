@@ -257,31 +257,22 @@ header nav .nav-sections ul > li > ul > li {
     gap: 0;
   }
 
-  /* First item = promo card with image, spans full left column */
-  header nav .nav-sections .default-content-wrapper > ul > li > ul > li:first-child {
+  /* Promo image (1st item) + promo text (2nd item) form left column card */
+  header nav .nav-sections .default-content-wrapper > ul > li > ul > li:first-child,
+  header nav .nav-sections .default-content-wrapper > ul > li > ul > li:nth-child(2) {
     grid-column: 1;
-    grid-row: 1 / -1;
-    padding: 0;
-    background-color: var(--color-bg-warm-gray, #f7f5f2);
-    border-radius: var(--border-radius-m, 8px);
-    overflow: hidden;
   }
 
-  header nav .nav-sections .default-content-wrapper > ul > li > ul > li:first-child a {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    font-size: var(--body-font-size-m);
-    font-weight: 500;
-    color: var(--color-text-primary);
-    line-height: 1.4;
-    text-decoration: none;
-    padding: 0 24px 24px;
+  header nav .nav-sections .default-content-wrapper > ul > li > ul > li:first-child {
+    grid-row: 1;
+    padding: 0;
+    background-color: var(--color-bg-warm-gray, #f7f5f2);
+    border-radius: var(--border-radius-m, 8px) var(--border-radius-m, 8px) 0 0;
+    overflow: hidden;
   }
 
   header nav .nav-sections .default-content-wrapper > ul > li > ul > li:first-child picture {
     display: block;
-    margin: 0 -24px 16px;
   }
 
   header nav .nav-sections .default-content-wrapper > ul > li > ul > li:first-child img {
@@ -289,6 +280,22 @@ header nav .nav-sections ul > li > ul > li {
     height: auto;
     max-height: 200px;
     object-fit: cover;
+    display: block;
+  }
+
+  header nav .nav-sections .default-content-wrapper > ul > li > ul > li:nth-child(2) {
+    grid-row: 2 / -1;
+    padding: 16px 24px 24px;
+    background-color: var(--color-bg-warm-gray, #f7f5f2);
+    border-radius: 0 0 var(--border-radius-m, 8px) var(--border-radius-m, 8px);
+  }
+
+  header nav .nav-sections .default-content-wrapper > ul > li > ul > li:nth-child(2) a {
+    font-size: var(--body-font-size-m);
+    font-weight: 500;
+    color: var(--color-text-primary);
+    line-height: 1.4;
+    text-decoration: none;
   }
 
   /* Regular dropdown links in right column */
