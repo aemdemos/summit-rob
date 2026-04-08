@@ -11,11 +11,37 @@
 
 .cards > ul > li {
   border: var(--cards-card-border-width) solid var(--cards-card-border-color);
+  border-radius: var(--border-radius-m, 8px);
   background-color: var(--background-color);
+  overflow: hidden;
 }
 
 .cards .cards-card-body {
   margin: var(--cards-card-body-margin);
+}
+
+.cards .cards-card-body h3 {
+  font-family: var(--body-font-family);
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 1.25;
+  margin: 0 0 8px;
+}
+
+.cards .cards-card-body h3 a {
+  color: var(--color-brand-teal, #0b6e76);
+  text-decoration: none;
+}
+
+.cards .cards-card-body h3 a:hover {
+  text-decoration: underline;
+}
+
+.cards .cards-card-body p {
+  font-size: var(--body-font-size-s, 14px);
+  color: var(--color-text-secondary, #4e5257);
+  margin: 0;
+  line-height: 1.5;
 }
 
 .cards .cards-card-image {

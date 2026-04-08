@@ -1,7 +1,7 @@
 /* cards design tokens */
 :root {
   --cards-grid-min-width: 257px;
-  --cards-grid-gap: 24px;
+  --cards-grid-gap: 16px;
   --cards-card-border-width: 1px;
   --cards-card-border-color: #dadada;
   --cards-card-body-margin: 16px;
