@@ -268,31 +268,66 @@ header nav .nav-sections ul > li > ul > li {
     grid-column: 1;
   }
 
+  /* Promo image item — squircle with decorative shapes behind */
   header nav .nav-sections .default-content-wrapper > ul > li > ul > li:first-child {
     grid-row: 1;
-    padding: 0;
+    padding: 40px 40px 16px;
     background-color: var(--color-bg-warm-gray, #f7f5f2);
     border-radius: var(--border-radius-m, 8px) var(--border-radius-m, 8px) 0 0;
+    position: relative;
     overflow: hidden;
+  }
+
+  /* Decorative gray shape behind image (bottom-right) */
+  header nav .nav-sections .default-content-wrapper > ul > li > ul > li:first-child::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 20px;
+    width: 140px;
+    height: 140px;
+    background-color: rgb(0 0 0 / 5%);
+    border-radius: 24px;
+    z-index: 0;
+  }
+
+  /* Decorative red shape behind image (top-left) */
+  header nav .nav-sections .default-content-wrapper > ul > li > ul > li:first-child::after {
+    content: '';
+    position: absolute;
+    top: 16px;
+    left: 24px;
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--color-brand-red, #c03);
+    border-radius: 50% 50% 50% 0;
+    z-index: 0;
   }
 
   header nav .nav-sections .default-content-wrapper > ul > li > ul > li:first-child picture {
     display: block;
+    position: relative;
+    z-index: 1;
+    max-width: 180px;
+    margin: 0 auto;
   }
 
   header nav .nav-sections .default-content-wrapper > ul > li > ul > li:first-child img {
     width: 100%;
     height: auto;
-    max-height: 200px;
-    object-fit: cover;
+    border-radius: 20px;
     display: block;
   }
 
+  /* Promo text + CTA button */
   header nav .nav-sections .default-content-wrapper > ul > li > ul > li:nth-child(2) {
     grid-row: 2 / -1;
-    padding: 16px 24px 24px;
+    padding: 0 24px 24px;
     background-color: var(--color-bg-warm-gray, #f7f5f2);
     border-radius: 0 0 var(--border-radius-m, 8px) var(--border-radius-m, 8px);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
   }
 
   header nav .nav-sections .default-content-wrapper > ul > li > ul > li:nth-child(2) a {
@@ -301,6 +336,25 @@ header nav .nav-sections ul > li > ul > li {
     color: var(--color-text-primary);
     line-height: 1.4;
     text-decoration: none;
+    display: block;
+  }
+
+  /* CTA button inside promo (strong > a pattern) */
+  header nav .nav-sections .default-content-wrapper > ul > li > ul > li:nth-child(2) strong a {
+    display: inline-block;
+    background-color: var(--color-brand-teal-dark, #033941);
+    color: var(--color-text-inverse, #fff);
+    border-radius: var(--border-radius-pill, 999px);
+    padding: 12px 28px;
+    font-size: var(--body-font-size-s, 14px);
+    font-weight: 500;
+    text-align: center;
+    text-decoration: none;
+    margin-top: 8px;
+  }
+
+  header nav .nav-sections .default-content-wrapper > ul > li > ul > li:nth-child(2) strong a:hover {
+    background-color: var(--color-brand-teal, #0b6e76);
   }
 
   /* Regular dropdown links in center column */
