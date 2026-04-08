@@ -6,6 +6,7 @@ header .nav-wrapper {
   width: 100%;
   z-index: 2;
   position: fixed;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 8%);
 }
 
 header nav {
@@ -236,38 +237,89 @@ header nav .nav-sections ul > li > ul > li {
     position: relative;
   }
 
+  /* Mega-menu dropdown panel with grid: promo left, links right */
   header nav .nav-sections .default-content-wrapper > ul > li[aria-expanded='true'] > ul {
-    display: block;
-    position: absolute;
-    left: var(--header-dropdown-left);
-    width: var(--header-dropdown-width);
-    top: 150%;
-    padding: var(--header-dropdown-padding);
-    background-color: var(--light-color);
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    grid-template-rows: auto;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: var(--nav-height);
+    width: 100%;
+    max-width: none;
+    padding: 32px 48px;
+    background-color: var(--background-color);
     white-space: initial;
-    z-index: 1;
+    z-index: 10;
+    box-shadow: 0 8px 24px rgb(0 0 0 / 12%);
+    border-top: 1px solid var(--border-color-light, #e5e7eb);
+    gap: 0;
   }
 
-  header nav .nav-sections .default-content-wrapper > ul > li > ul::before {
-    content: '';
-    position: absolute;
-    top: -8px;
-    left: var(--header-dropdown-padding);
-    width: 0;
-    height: 0;
-    border-left: 8px solid transparent;
-    border-right: 8px solid transparent;
-    border-bottom: 8px solid var(--light-color);
+  /* First item = promo card with image, spans full left column */
+  header nav .nav-sections .default-content-wrapper > ul > li > ul > li:first-child {
+    grid-column: 1;
+    grid-row: 1 / -1;
+    padding: 0;
+    background-color: var(--color-bg-warm-gray, #f7f5f2);
+    border-radius: var(--border-radius-m, 8px);
+    overflow: hidden;
   }
 
+  header nav .nav-sections .default-content-wrapper > ul > li > ul > li:first-child a {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    font-size: var(--body-font-size-m);
+    font-weight: 500;
+    color: var(--color-text-primary);
+    line-height: 1.4;
+    text-decoration: none;
+    padding: 0 24px 24px;
+  }
+
+  header nav .nav-sections .default-content-wrapper > ul > li > ul > li:first-child picture {
+    display: block;
+    margin: 0 -24px 16px;
+  }
+
+  header nav .nav-sections .default-content-wrapper > ul > li > ul > li:first-child img {
+    width: 100%;
+    height: auto;
+    max-height: 200px;
+    object-fit: cover;
+  }
+
+  /* Regular dropdown links in right column */
   header nav .nav-sections .default-content-wrapper > ul > li > ul > li {
-    padding: 8px 0;
+    grid-column: 2;
+    padding: 6px 0;
   }
+
+  header nav .nav-sections .default-content-wrapper > ul > li > ul > li a {
+    font-size: var(--body-font-size-m);
+    font-weight: 400;
+    color: var(--color-text-primary);
+    text-decoration: none;
+  }
+
+  header nav .nav-sections .default-content-wrapper > ul > li > ul > li a:hover {
+    color: var(--color-brand-teal, #0b6e76);
+  }
+}
+
+/* Active nav item color */
+header nav .nav-sections .default-content-wrapper > ul > li[aria-expanded='true'] {
+  color: var(--color-brand-teal, #0b6e76);
 }
 
 /* tools */
 header nav .nav-tools {
   grid-area: tools;
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 
 header nav .nav-tools .button {
@@ -276,6 +328,18 @@ header nav .nav-tools .button {
   padding: 0.5em;
   background: none;
   line-height: 0;
+}
+
+header nav .nav-tools a:not(.button) {
+  font-size: var(--body-font-size-s);
+  font-weight: 500;
+  color: var(--color-text-primary);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+header nav .nav-tools a:not(.button):hover {
+  color: var(--color-brand-teal, #0b6e76);
 }
 
 /* breadcrumbs */
