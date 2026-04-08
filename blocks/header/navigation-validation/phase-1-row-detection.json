@@ -1,0 +1,16 @@
+{
+  "rowCount": 1,
+  "rows": [
+    {
+      "index": 0,
+      "height": 64,
+      "top": 0,
+      "backgroundColor": "rgb(255, 255, 255)",
+      "position": "sticky",
+      "elements": ["logo", "nav-links-x4", "search-icon", "sign-in-link"],
+      "description": "Single header row: RH logo left, 4 nav dropdown triggers center, search + sign-in right"
+    }
+  ],
+  "confidence": 0.95,
+  "notes": "Robert Half uses rhcl-block-navigation web component with shadow DOM. Single row header with mega-menu dropdowns."
+}
