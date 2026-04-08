@@ -1,0 +1,66 @@
+/* Stats / Data Visualization block — Robert Half "Why Robert Half" */
+
+.stats .stats-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+}
+
+.stats .stats-card {
+  text-align: center;
+}
+
+.stats .stats-data-point {
+  font-family: var(--body-font-family);
+  font-weight: 500;
+  font-size: var(--data-font-size-l, 28px);
+  line-height: 1.2;
+  color: var(--color-brand-red, #c03);
+  margin-bottom: 8px;
+}
+
+.stats .stats-card-featured .stats-data-point {
+  font-weight: 600;
+  font-size: var(--data-font-size-xl, 36px);
+}
+
+.stats .stats-description {
+  font-size: var(--body-font-size-m, 16px);
+  color: var(--color-text-secondary, #4e5257);
+  line-height: 1.5;
+  max-width: 320px;
+  margin: 0 auto;
+}
+
+/* Tablet: featured card left, others stacked right */
+@media (width >= 768px) {
+  .stats .stats-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 40px 48px;
+    align-items: center;
+  }
+
+  .stats .stats-card-featured {
+    grid-row: 1 / 3;
+    text-align: left;
+  }
+
+  .stats .stats-card:not(.stats-card-featured) {
+    text-align: left;
+  }
+
+  .stats .stats-description {
+    margin: 0;
+  }
+}
+
+/* Desktop: larger data points */
+@media (width >= 1024px) {
+  .stats .stats-data-point {
+    font-size: var(--data-font-size-l, 40px);
+  }
+
+  .stats .stats-card-featured .stats-data-point {
+    font-size: var(--data-font-size-xl, 48px);
+  }
+}

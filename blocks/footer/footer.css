@@ -1,8 +1,9 @@
 @import url('./footer-tokens.css');
 
 footer {
-  background-color: var(--light-color);
-  font-size: var(--body-font-size-xs);
+  background-color: var(--background-color);
+  font-size: var(--body-font-size-s);
+  border-top: 1px solid var(--border-color-light, #e5e7eb);
 }
 
 footer .footer > div {
@@ -15,7 +16,101 @@ footer .footer p {
   margin: 0;
 }
 
-@media (width >= 900px) {
+/* Top section: 4-column link grid */
+footer .footer > div:first-child {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px 24px;
+}
+
+footer .footer > div:first-child h2 {
+  font-family: var(--body-font-family);
+  font-size: var(--body-font-size-s, 14px);
+  font-weight: 600;
+  color: var(--color-text-primary, #27323a);
+  margin: 0 0 12px;
+  line-height: 1.4;
+}
+
+footer .footer > div:first-child ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+footer .footer > div:first-child li {
+  margin-bottom: 8px;
+}
+
+footer .footer > div:first-child a {
+  color: var(--color-text-secondary, #4e5257);
+  text-decoration: none;
+  font-size: var(--body-font-size-xs, 12px);
+}
+
+footer .footer > div:first-child a:hover {
+  color: var(--color-brand-teal, #0b6e76);
+  text-decoration: underline;
+}
+
+/* Middle section: logo + social */
+footer .footer > div:nth-child(2) {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  border-top: 1px solid var(--border-color-light, #e5e7eb);
+  padding-top: 24px;
+}
+
+footer .footer > div:nth-child(2) img {
+  width: 120px;
+  height: auto;
+}
+
+footer .footer > div:nth-child(2) .icon {
+  width: 20px;
+  height: 20px;
+}
+
+footer .footer > div:nth-child(2) a {
+  color: var(--color-text-secondary, #4e5257);
+  margin-right: 12px;
+}
+
+footer .footer > div:nth-child(2) a:hover {
+  color: var(--color-brand-teal, #0b6e76);
+}
+
+/* Bottom section: legal links + copyright */
+footer .footer > div:last-child {
+  border-top: 1px solid var(--border-color-light, #e5e7eb);
+  padding-top: 16px;
+  color: var(--color-text-tertiary, #6b7075);
+  font-size: var(--body-font-size-xs, 12px);
+}
+
+footer .footer > div:last-child a {
+  color: var(--color-text-tertiary, #6b7075);
+  text-decoration: none;
+}
+
+footer .footer > div:last-child a:hover {
+  text-decoration: underline;
+}
+
+footer .footer > div:last-child p {
+  margin-bottom: 8px;
+}
+
+@media (width >= 768px) {
+  footer .footer > div:first-child {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (width >= 1024px) {
   footer .footer > div {
     padding: var(--footer-padding-desktop);
   }

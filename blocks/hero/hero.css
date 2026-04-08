@@ -1,39 +1,153 @@
-@import url('./hero-tokens.css');
+/* Hero block — Robert Half full-width hero */
 
+/* Remove default section constraints */
 .hero-container .hero-wrapper {
   max-width: unset;
   padding: 0;
 }
 
+.hero-container {
+  padding: 0;
+}
+
+/* Block container */
 .hero {
   position: relative;
-  padding: var(--hero-padding);
-  min-height: var(--hero-min-height);
+  display: flex;
+  align-items: flex-end;
+  min-height: 420px;
+  overflow: hidden;
+  background-color: #151a1e;
 }
 
-.hero h1 {
-  max-width: var(--hero-heading-max-width);
-  margin-left: auto;
-  margin-right: auto;
-  color: var(--background-color);
-}
-
-.hero picture {
+/* Background image */
+.hero .hero-bg {
   position: absolute;
-  z-index: -1;
   inset: 0;
-  object-fit: cover;
-  box-sizing: border-box;
+  z-index: 0;
 }
 
-.hero img {
-  object-fit: cover;
+.hero .hero-bg picture {
+  display: block;
   width: 100%;
   height: 100%;
 }
 
-@media (width >= 900px) {
+.hero .hero-bg img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+/* Content overlay */
+.hero .hero-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 80px 24px 40px;
+  width: 100%;
+  max-width: 100%;
+}
+
+.hero .hero-content h1 {
+  font-family: var(--heading-font-family);
+  font-size: var(--heading-font-size-xxl);
+  font-weight: 300;
+  line-height: 1.2;
+  color: var(--color-text-inverse);
+  margin: 0 0 16px;
+}
+
+.hero .hero-content h1 b,
+.hero .hero-content h1 strong {
+  font-weight: 700;
+}
+
+.hero .hero-content p {
+  font-size: var(--body-font-size-m);
+  line-height: 1.5;
+  color: var(--color-text-inverse);
+  margin: 0 0 16px;
+  max-width: 480px;
+}
+
+/* CTA buttons */
+.hero .hero-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.hero .hero-cta .button-container,
+.hero .hero-cta .button-wrapper {
+  margin: 0;
+}
+
+.hero .hero-cta a.button {
+  margin: 0;
+  font-size: 16px;
+  padding: 12px 28px;
+}
+
+.hero .hero-cta a.button.primary,
+.hero .hero-cta a.button:not(.secondary, .tertiary) {
+  background-color: var(--color-brand-red);
+  color: var(--color-text-inverse);
+  border-color: var(--color-brand-red);
+}
+
+.hero .hero-cta a.button.primary:hover,
+.hero .hero-cta a.button:not(.secondary, .tertiary):hover {
+  background-color: var(--color-brand-red-hover);
+  border-color: var(--color-brand-red-hover);
+}
+
+.hero .hero-cta a.button.secondary {
+  background-color: var(--background-color);
+  color: var(--color-text-primary);
+  border: 2px solid var(--background-color);
+}
+
+.hero .hero-cta a.button.secondary:hover {
+  background-color: rgb(255 255 255 / 90%);
+}
+
+/* ======================== TABLET (768px+) ======================== */
+@media (width >= 768px) {
   .hero {
-    padding: var(--hero-padding-desktop);
+    min-height: 500px;
+    align-items: center;
+  }
+
+  .hero .hero-content {
+    padding: 100px 48px 48px;
+    max-width: 60%;
+    justify-content: center;
+  }
+}
+
+/* ======================== DESKTOP (1024px+) ======================== */
+@media (width >= 1024px) {
+  .hero {
+    min-height: 653px;
+  }
+
+  .hero .hero-content {
+    padding: 134px 48px 48px;
+    max-width: 55%;
+  }
+
+  .hero .hero-content h1 {
+    font-size: 56px;
+    line-height: 1.2;
+  }
+
+  .hero .hero-content p {
+    font-size: 18px;
   }
 }
