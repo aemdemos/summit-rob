@@ -2,8 +2,8 @@
 Your project's description...
 
 ## Environments
-- Preview: https://main--ise-boilerplate--aemdemos.aem.page/
-- Live: https://main--ise-boilerplate--aemdemos.aem.live/
+- Preview: https://main--summit-rob--aemdemos.aem.page/
+- Live: https://main--summit-rob--aemdemos.aem.live/
 
 ## Documentation
 
