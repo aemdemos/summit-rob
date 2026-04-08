@@ -1,117 +1,161 @@
 @import url('./footer-tokens.css');
 
+/* ===================== FOOTER — Robert Half ===================== */
+
+/* Upper: dark (#27323a) with 4 white-text columns */
+
+/* Lower: darker (#373a3e) with monogram, social icons, legal, copyright */
+
 footer {
-  background-color: var(--background-color);
-  font-size: var(--body-font-size-s);
-  border-top: 1px solid var(--border-color-light, #e5e7eb);
+  background-color: var(--dark-color, #27323a);
+  color: var(--color-text-inverse, #fff);
+  font-size: var(--body-font-size-s, 14px);
 }
 
 footer .footer > div {
   margin: auto;
-  max-width: var(--footer-max-width);
-  padding: var(--footer-padding);
+  max-width: var(--max-width-site, 1200px);
 }
 
 footer .footer p {
   margin: 0;
 }
 
-/* Top section: 4-column link grid */
-footer .footer > div:first-child {
+/* ===================== UPPER: 4-column link grid ===================== */
+footer .footer .section:first-child {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 32px 24px;
+  padding: 48px 24px;
 }
 
-footer .footer > div:first-child h2 {
+footer .footer .section:first-child > div {
+  max-width: none;
+  padding: 0;
+  margin: 0;
+}
+
+footer .footer .section:first-child h2 {
   font-family: var(--body-font-family);
-  font-size: var(--body-font-size-s, 14px);
+  font-size: var(--body-font-size-m, 16px);
   font-weight: 600;
-  color: var(--color-text-primary, #27323a);
-  margin: 0 0 12px;
+  color: var(--color-text-inverse, #fff);
+  margin: 0 0 16px;
   line-height: 1.4;
 }
 
-footer .footer > div:first-child ul {
+footer .footer .section:first-child ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-footer .footer > div:first-child li {
-  margin-bottom: 8px;
+footer .footer .section:first-child li {
+  margin-bottom: 10px;
 }
 
-footer .footer > div:first-child a {
-  color: var(--color-text-secondary, #4e5257);
+footer .footer .section:first-child a {
+  color: var(--color-text-inverse, #fff);
   text-decoration: none;
-  font-size: var(--body-font-size-xs, 12px);
+  font-size: var(--body-font-size-s, 14px);
+  line-height: 1.5;
+  opacity: 0.85;
 }
 
-footer .footer > div:first-child a:hover {
-  color: var(--color-brand-teal, #0b6e76);
+footer .footer .section:first-child a:hover {
+  opacity: 1;
   text-decoration: underline;
 }
 
-/* Middle section: logo + social */
-footer .footer > div:nth-child(2) {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  border-top: 1px solid var(--border-color-light, #e5e7eb);
-  padding-top: 24px;
+/* ===================== MIDDLE: monogram + social icons ===================== */
+footer .footer .section:nth-child(2) {
+  background-color: rgb(55 58 62);
+  padding: 40px 24px 32px;
 }
 
-footer .footer > div:nth-child(2) img {
-  width: 120px;
+footer .footer .section:nth-child(2) > div {
+  max-width: var(--max-width-site, 1200px);
+  margin: auto;
+  padding: 0;
+}
+
+footer .footer .section:nth-child(2) img {
+  width: 48px;
   height: auto;
+  display: block;
+  margin-bottom: 24px;
 }
 
-footer .footer > div:nth-child(2) .icon {
+footer .footer .section:nth-child(2) .icon {
   width: 20px;
   height: 20px;
+  filter: brightness(0) invert(1);
 }
 
-footer .footer > div:nth-child(2) a {
-  color: var(--color-text-secondary, #4e5257);
-  margin-right: 12px;
+footer .footer .section:nth-child(2) a {
+  color: var(--color-text-inverse, #fff);
+  margin-right: 16px;
+  display: inline-flex;
+  align-items: center;
 }
 
-footer .footer > div:nth-child(2) a:hover {
-  color: var(--color-brand-teal, #0b6e76);
+footer .footer .section:nth-child(2) a:hover {
+  opacity: 0.8;
 }
 
-/* Bottom section: legal links + copyright */
-footer .footer > div:last-child {
-  border-top: 1px solid var(--border-color-light, #e5e7eb);
-  padding-top: 16px;
-  color: var(--color-text-tertiary, #6b7075);
+/* ===================== LOWER: legal + copyright ===================== */
+footer .footer .section:last-child {
+  background-color: rgb(55 58 62);
+  padding: 24px 24px 40px;
+  color: rgb(255 255 255 / 70%);
   font-size: var(--body-font-size-xs, 12px);
+  line-height: 1.6;
 }
 
-footer .footer > div:last-child a {
-  color: var(--color-text-tertiary, #6b7075);
+footer .footer .section:last-child > div {
+  max-width: var(--max-width-site, 1200px);
+  margin: auto;
+  padding: 0;
+}
+
+footer .footer .section:last-child a {
+  color: rgb(255 255 255 / 70%);
   text-decoration: none;
 }
 
-footer .footer > div:last-child a:hover {
+footer .footer .section:last-child a:hover {
+  color: var(--color-text-inverse, #fff);
   text-decoration: underline;
 }
 
-footer .footer > div:last-child p {
+footer .footer .section:last-child p {
   margin-bottom: 8px;
 }
 
+/* ===================== RESPONSIVE ===================== */
 @media (width >= 768px) {
-  footer .footer > div:first-child {
+  footer .footer .section:first-child {
     grid-template-columns: repeat(4, 1fr);
+    gap: 24px 48px;
+    padding-left: 48px;
+    padding-right: 48px;
+  }
+
+  footer .footer .section:nth-child(2),
+  footer .footer .section:last-child {
+    padding-left: 48px;
+    padding-right: 48px;
   }
 }
 
 @media (width >= 1024px) {
-  footer .footer > div {
-    padding: var(--footer-padding-desktop);
+  footer .footer .section:first-child {
+    padding: 56px 80px;
+  }
+
+  footer .footer .section:nth-child(2),
+  footer .footer .section:last-child {
+    padding-left: 80px;
+    padding-right: 80px;
   }
 }
