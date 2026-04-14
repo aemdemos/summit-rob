@@ -129,7 +129,7 @@ function buildRegionSelector(section) {
 
   regions.forEach((region) => {
     const nameSpan = el('span', { className: 'region-selector-item-name' }, region.name);
-    const chevron = el('span', { className: 'region-selector-item-chevron' }, '\u203A');
+    const chevron = el('span', { className: 'region-selector-item-chevron', 'aria-hidden': 'true' }, '\u2304');
     const header = el(
       'button',
       { className: 'region-selector-item-header', 'aria-expanded': 'false' },
