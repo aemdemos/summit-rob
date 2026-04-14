@@ -1,6 +1,7 @@
 /**
  * Reusable slider: scroll-to-slide, prev/next, indicators, and active-state sync.
  * Does not create DOM; call initSlider(block, options) after the block's slides/controls exist.
+ * Maps vertical wheel/trackpad delta to horizontal scroll when over the strip (edges allow page scroll).
  *
  * Options (all optional; defaults match carousel block):
  * - slidesContainer: selector for the scrollable container (e.g. '.carousel-slides')
@@ -137,6 +138,39 @@ export function showSlide(block, slideIndex = 0, behavior = 'smooth', options = 
 }
 
 /**
+ * Vertical wheel → horizontal scroll on the slides strip (passive: false only when preventing default).
+ * @param {Element} block - Root block element
+ * @param {Object} options - Selector options
+ */
+function bindWheelScrollHorizontal(block, options = {}) {
+  const opts = getSliderOpts(options);
+  const container = block.querySelector(opts.get('slidesContainer'));
+  if (!container) return;
+
+  container.addEventListener('wheel', (e) => {
+    const { deltaX, deltaY } = e;
+    if (Math.abs(deltaX) > Math.abs(deltaY)) {
+      return;
+    }
+    if (deltaY === 0) return;
+
+    const maxScroll = container.scrollWidth - container.clientWidth;
+    if (maxScroll <= 0) return;
+
+    const { scrollLeft } = container;
+    const down = deltaY > 0;
+    const atStart = scrollLeft <= 0;
+    const atEnd = scrollLeft >= maxScroll - 1;
+
+    if (down && atEnd) return;
+    if (!down && atStart) return;
+
+    e.preventDefault();
+    container.scrollLeft += deltaY;
+  }, { passive: false });
+}
+
+/**
  * Binds indicator clicks, prev/next buttons, and IntersectionObserver to sync active state.
  * @param {Element} block - Root block element
  * @param {Object} options - Selector/dataset options
@@ -145,6 +179,8 @@ function bindEvents(block, options = {}) {
   const opts = getSliderOpts(options);
   const targetSlideAttr = opts.get('targetSlideAttr');
   const activeSlideAttr = opts.get('activeSlideAttr');
+
+  bindWheelScrollHorizontal(block, options);
 
   const slideIndicators = block.querySelector(opts.get('indicatorsContainer'));
   if (slideIndicators) {
