@@ -380,6 +380,10 @@ main .section.tabs-container h2 {
     font-family: "notosans display light", opensanslight, "open sans light", notosans, notosansjp-light, notosanssc-light, sans-serif;   
   }
 
+  .tabs .tabs-panel {
+    padding-bottom: 26px;
+  }
+
   .tabs .tabs-text-col > p:first-child {
     font-family:"Noto Sans Regular", OpenSansRegular, "Open Sans Regular", "Noto Sans", NotoSansJP-Regular, NotoSansSC-Regular, sans-serif;
    font-size: 18px;
