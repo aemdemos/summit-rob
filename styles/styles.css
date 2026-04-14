@@ -189,6 +189,19 @@ footer .footer[data-block-status="loaded"] {
   visibility: visible;
 }
 
+/* Footer block: span full layout width (avoid inheriting main content max-width from wrappers) */
+footer .footer.block {
+  width: 100%;
+  max-width: none;
+}
+
+/* Footer block placed inside main (authored layout): section inner column must not cap footer width */
+main > .section:has(.footer.block) > div:not(.bg-image) {
+  max-width: none;
+  width: 100%;
+  padding: 0;
+}
+
 /* ===================== HEADINGS ===================== */
 h1,
 h2,
