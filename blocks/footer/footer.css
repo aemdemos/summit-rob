@@ -132,9 +132,7 @@ footer .footer .section:last-child > div {
   gap: 16px 48px;
 }
 
-/* Legal links row (Fraud Alert | Government Notice | ...) */
 footer .footer .section:last-child a {
-  color: var(--color-text-inverse, #fff);
   text-decoration: none;
 }
 
@@ -142,41 +140,32 @@ footer .footer .section:last-child a:hover {
   text-decoration: underline;
 }
 
-/* First paragraph: legal links with pipe separators */
-footer .footer .section:last-child .default-content-wrapper > p:first-of-type {
-  font-size: var(--body-font-size-m, 16px);
-  color: var(--color-text-inverse, #fff);
-  margin-bottom: 4px;
-}
-
-footer .footer .section:last-child .default-content-wrapper > p:first-of-type a {
-  color: var(--color-text-inverse, #fff);
-}
-
-/* Terms of Use — same style as the legal links row */
-footer .footer .section:last-child .default-content-wrapper > p:nth-of-type(2) {
-  font-size: var(--body-font-size-m, 16px);
-  color: var(--color-text-inverse, #fff);
-  margin-bottom: 16px;
-}
-
-footer .footer .section:last-child .default-content-wrapper > p:nth-of-type(2) a {
-  color: var(--color-text-inverse, #fff);
-}
-
-/* Copyright + Equal Opportunity line */
-footer .footer .section:last-child .default-content-wrapper > p:nth-of-type(3) {
-  font-size: var(--body-font-size-xs, 12px);
-  color: rgb(255 255 255 / 70%);
-  margin-bottom: 4px;
-}
-
-footer .footer .section:last-child .default-content-wrapper > p:nth-of-type(3) a {
-  color: rgb(255 255 255 / 70%);
-}
-
 footer .footer .section:last-child p {
   margin-bottom: 4px;
+}
+
+/* Legal links (Fraud Alert | Government Notice | ... | Terms of Use) */
+footer .footer .section:last-child .footer-legal-links {
+  font-size: var(--body-font-size-m, 16px);
+  color: var(--color-text-inverse, #fff);
+}
+
+footer .footer .section:last-child .footer-legal-links a {
+  color: var(--color-text-inverse, #fff);
+}
+
+/* Copyright, Equal Opportunity, Do Not Sell */
+footer .footer .section:last-child .footer-copyright {
+  font-size: var(--body-font-size-xs, 12px);
+  color: rgb(255 255 255 / 70%);
+}
+
+footer .footer .section:last-child .footer-copyright a {
+  color: rgb(255 255 255 / 70%);
+}
+
+footer .footer .section:last-child .footer-copyright:first-of-type {
+  margin-top: 12px;
 }
 
 /* Region selector — right column on desktop */

@@ -198,6 +198,18 @@ function buildRegionSelector(section) {
   });
 
   regionParagraph.replaceWith(selectorWrapper);
+
+  // Classify remaining paragraphs for CSS styling
+  const remainingParagraphs = [...wrapper.querySelectorAll(':scope > p')];
+  remainingParagraphs.forEach((p) => {
+    const text = p.textContent.trim();
+    if (text.includes('|') || p.querySelector('a[href*="fraud"]') || p.querySelector('a[href*="terms"]')
+      || p.querySelector('a[href*="government"]') || p.querySelector('a[href*="privacy"]')) {
+      p.classList.add('footer-legal-links');
+    } else {
+      p.classList.add('footer-copyright');
+    }
+  });
 }
 
 /**
