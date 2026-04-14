@@ -142,14 +142,15 @@ main .section.carousel-container .carousel-wrapper .carousel .carousel-slides-co
 
 /* Move nav buttons below the cards, right-aligned */
 .carousel .carousel-navigation-buttons {
-  position: static;
+  /* relative + z-index so prev/next stay above the strip (mask/overflow stacking) */
+  position: relative;
+  z-index: 2;
   transform: none;
   display: flex;
   align-items: center;
   justify-content: flex-end;
   gap: 12px;
   padding: 24px 0 0;
-  z-index: 1;
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
@@ -258,7 +259,9 @@ main .section.carousel-container .carousel-wrapper .carousel .carousel-slides-co
       rgb(9 9 121 / 0%) calc(100% - 70px)
     );
     mask-repeat: no-repeat;
-    mask-size: 100% 100%;
+    scrollbar-width: thin;
+    scroll-behavior: smooth;
+    scrollbar-color:#0b6e76 transparent;
   }
 }
 

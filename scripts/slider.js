@@ -10,6 +10,7 @@
  * - indicatorItemSelector: selector for each indicator item with data-target-slide (e.g. '.carousel-slide-indicator')
  * - prevSelector: selector for previous button (e.g. '.slide-prev')
  * - nextSelector: selector for next button (e.g. '.slide-next')
+ * - navButtonsWrapper: selector for the prev/next control bar (e.g. '.carousel-navigation-buttons')
  * - activeSlideAttr: block dataset key for current index (e.g. 'activeSlide')
  * - targetSlideAttr: indicator item dataset key for target index (e.g. 'targetSlide')
  * - slideIndexAttr: slide dataset key for its index (e.g. 'slideIndex')
@@ -22,6 +23,7 @@ const DEFAULT_OPTIONS = {
   indicatorItemSelector: '.carousel-slide-indicator',
   prevSelector: '.slide-prev',
   nextSelector: '.slide-next',
+  navButtonsWrapper: '.carousel-navigation-buttons',
   activeSlideAttr: 'activeSlide',
   targetSlideAttr: 'targetSlide',
   slideIndexAttr: 'slideIndex',
@@ -195,27 +197,30 @@ function bindEvents(block, options = {}) {
     });
   }
 
-  const prevBtn = block.querySelector(opts.get('prevSelector'));
+  const navBar = block.querySelector(opts.get('navButtonsWrapper'));
+  const prevBtn = navBar?.querySelector(opts.get('prevSelector'))
+    ?? block.querySelector(opts.get('prevSelector'));
+  const nextBtn = navBar?.querySelector(opts.get('nextSelector'))
+    ?? block.querySelector(opts.get('nextSelector'));
+
+  const resolveCurrentIndex = () => {
+    const container = block.querySelector(opts.get('slidesContainer'));
+    const slides = block.querySelectorAll(opts.get('slideSelector'));
+    if (container && slides.length) {
+      return getCurrentSlideIndexFromScroll(container, slides);
+    }
+    return parseInt(getDatasetAttr(block, activeSlideAttr), 10) || 0;
+  };
+
   if (prevBtn) {
     prevBtn.addEventListener('click', () => {
-      const container = block.querySelector(opts.get('slidesContainer'));
-      const slides = block.querySelectorAll(opts.get('slideSelector'));
-      const current = container && slides.length
-        ? getCurrentSlideIndexFromScroll(container, slides)
-        : parseInt(getDatasetAttr(block, activeSlideAttr), 10) || 0;
-      showSlide(block, current - 1, 'smooth', options);
+      showSlide(block, resolveCurrentIndex() - 1, 'smooth', options);
     });
   }
 
-  const nextBtn = block.querySelector(opts.get('nextSelector'));
   if (nextBtn) {
     nextBtn.addEventListener('click', () => {
-      const container = block.querySelector(opts.get('slidesContainer'));
-      const slides = block.querySelectorAll(opts.get('slideSelector'));
-      const current = container && slides.length
-        ? getCurrentSlideIndexFromScroll(container, slides)
-        : parseInt(getDatasetAttr(block, activeSlideAttr), 10) || 0;
-      showSlide(block, current + 1, 'smooth', options);
+      showSlide(block, resolveCurrentIndex() + 1, 'smooth', options);
     });
   }
 
