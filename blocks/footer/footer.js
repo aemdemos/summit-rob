@@ -203,16 +203,30 @@ function buildRegionSelector(section) {
   // can place legal-left and region-selector-right as two columns
   const legalWrapper = el('div', { className: 'footer-legal' });
   const remainingParagraphs = [...wrapper.querySelectorAll(':scope > p')];
+
+  // Merge all legal-link paragraphs (with | separators or legal hrefs) into one <p>
+  const mergedLegal = document.createElement('p');
+  mergedLegal.classList.add('footer-legal-links');
+  const copyrightParagraphs = [];
+
   remainingParagraphs.forEach((p) => {
     const text = p.textContent.trim();
-    if (text.includes('|') || p.querySelector('a[href*="fraud"]') || p.querySelector('a[href*="terms"]')
-      || p.querySelector('a[href*="government"]') || p.querySelector('a[href*="privacy"]')) {
-      p.classList.add('footer-legal-links');
+    const isLegal = text.includes('|') || p.querySelector('a[href*="fraud"]') || p.querySelector('a[href*="terms"]')
+      || p.querySelector('a[href*="government"]') || p.querySelector('a[href*="privacy"]');
+    if (isLegal) {
+      // Append children (links + text nodes) into the merged paragraph
+      if (mergedLegal.childNodes.length > 0 && !text.startsWith('|')) {
+        mergedLegal.append(document.createTextNode(' '));
+      }
+      while (p.firstChild) mergedLegal.append(p.firstChild);
     } else {
       p.classList.add('footer-copyright');
+      copyrightParagraphs.push(p);
     }
-    legalWrapper.append(p);
   });
+
+  if (mergedLegal.childNodes.length) legalWrapper.append(mergedLegal);
+  copyrightParagraphs.forEach((p) => legalWrapper.append(p));
 
   // Insert legal wrapper before the region selector in the wrapper
   wrapper.insertBefore(legalWrapper, selectorWrapper);
