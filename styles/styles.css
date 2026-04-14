@@ -43,9 +43,9 @@
   --heading-font-family: 'Noto Sans Display', 'Noto Sans', noto-sans-display-fallback, sans-serif;
   --body-font-family: 'Noto Sans', noto-sans-fallback, sans-serif;
   --fixed-font-family: 'Roboto Mono', menlo, consolas, monospace;
-  --font-family-noto-regular: Noto Sans Regular, OpenSansRegular, Open Sans Regular, Noto Sans;
-  --font-family-noto-semibold: Noto Sans SemiBold, OpenSansSemiBold, Open Sans SemiBold, Noto Sans, NotoSansJP-Medium, NotoSansSC-Medium, sans-serif;
-  --font-family-noto-medium: Noto Sans Medium, OpenSansMedium, Open Sans Medium, Noto Sans, NotoSansJP-Medium, NotoSansSC-Medium, sans-serif;
+  --font-family-noto-regular: noto sans regular, opensansregular, open sans regular, noto sans;
+  --font-family-noto-semibold: noto sans semibold, opensanssemibold, open sans semibold, noto sans, notosansjp-medium, notosanssc-medium, sans-serif;
+  --font-family-noto-medium: noto sans medium, opensansmedium, open sans medium, noto sans, notosansjp-medium, notosanssc-medium, sans-serif;
 
   /* Heading sizes (mobile-first) */
   --heading-font-size-xxl: 36px;

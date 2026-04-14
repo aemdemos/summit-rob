@@ -126,8 +126,8 @@ footer .footer .section:last-child {
 }
 
 footer .footer .section:last-child > div {
-  max-width: var(--max-width-site, 1200px);
-  margin: auto;
+  max-width: 1280px;
+  margin: 0;
   padding: 0;
 }
 
@@ -172,7 +172,7 @@ footer .footer .footer-copyright {
 }
 
 footer .footer .footer-copyright a {
-  color: rgb(197 233 235 / 1);
+  color: rgb(197 233 235 / 100%);
   text-decoration: underline;
 }
 
@@ -246,10 +246,7 @@ footer .footer .region-selector-dropdown {
 footer .footer .region-selector-dropdown[aria-hidden="false"] {
   display: flex;
   position: fixed;
-  top: 0;
-  right: 0;
-  left: auto;
-  bottom: auto;
+  inset: 0 0 auto auto;
   width: min(400px, 100vw);
   height: 100vh;
   height: 100dvh;
@@ -417,8 +414,8 @@ footer .footer .region-selector-item-languages a:hover {
 
   footer .footer .section:nth-child(2),
   footer .footer .section:last-child {
-    padding-left: 80px;
-    padding-right: 80px;
+    padding-left: 0;
+    padding-right: 0;
   }
 
   footer .footer .footer-legal-links a:nth-of-type(3) {
