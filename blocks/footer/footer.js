@@ -44,7 +44,6 @@ function buildLinkColumns(section) {
 
 /**
  * Parses region data from authored nested list in the footer content.
- * Expected structure: <ul><li>Country Name<ul><li><a href="/path">Language</a></li>...</ul></li>...</ul>
  * @param {Element} listEl The UL element containing region data
  * @returns {Array} Array of { name, languages: [{ label, href }] }
  */
@@ -53,8 +52,11 @@ function parseRegionList(listEl) {
   listEl.querySelectorAll(':scope > li').forEach((li) => {
     const subList = li.querySelector('ul');
     if (!subList) return;
-    // Country name is the text content before the nested UL
-    const name = li.childNodes[0].textContent.trim();
+    // Country name may be a text node or wrapped in <p> by the fragment loader
+    const firstChild = li.firstElementChild;
+    const name = (firstChild && firstChild.tagName === 'P')
+      ? firstChild.textContent.trim()
+      : li.childNodes[0].textContent.trim();
     const languages = [...subList.querySelectorAll('a')].map((a) => ({
       label: a.textContent.trim(),
       href: a.getAttribute('href'),
@@ -65,15 +67,13 @@ function parseRegionList(listEl) {
 }
 
 /**
- * Builds the region/language selector from authored content.
- * Finds the region paragraph + following nested list in the last section.
+ * Builds a dropdown region/language selector from authored content.
  * @param {Element} section The last footer section
  */
 function buildRegionSelector(section) {
   const wrapper = section.querySelector('.default-content-wrapper') || section;
   const paragraphs = wrapper.querySelectorAll('p');
 
-  // Find the paragraph with current region label (e.g. "United States (English)")
   let regionParagraph = null;
   paragraphs.forEach((p) => {
     if (p.textContent.trim().match(/\(English\)|\(Français\)|\(Deutsch\)|\(Español\)/)) {
@@ -82,7 +82,6 @@ function buildRegionSelector(section) {
   });
   if (!regionParagraph) return;
 
-  // Find the UL that follows the region paragraph (the authored region list)
   const regionList = regionParagraph.nextElementSibling;
   if (!regionList || regionList.tagName !== 'UL') return;
 
@@ -90,11 +89,9 @@ function buildRegionSelector(section) {
   if (!regions.length) return;
 
   const currentLabel = regionParagraph.textContent.trim();
-
-  // Remove the authored list from DOM (it's now data)
   regionList.remove();
 
-  // Build selector UI
+  // Button
   const arrow = el('span', { className: 'region-selector-arrow' }, '\u2192');
   const openBtn = el(
     'button',
@@ -109,22 +106,25 @@ function buildRegionSelector(section) {
     openBtn,
   );
 
-  // Modal
+  // Dropdown header
   const closeBtn = el('button', { className: 'region-selector-close', 'aria-label': 'Close' }, '\u2715');
-  const modalHeader = el(
+  const dropdownHeader = el(
     'div',
-    { className: 'region-selector-modal-header' },
-    el('h2', null, 'Choose your region and language'),
+    { className: 'region-selector-dropdown-header' },
+    el('h3', null, 'Choose your region and language'),
     closeBtn,
   );
 
+  // Current info
   const currentInfo = el(
     'div',
-    { className: 'region-selector-modal-current' },
+    // eslint-disable-next-line secure-coding/no-hardcoded-credentials
+    { className: 'region-selector-dropdown-current' },
     el('p', null, 'Your current region and language is:'),
     el('p', null, el('strong', null, currentLabel)),
   );
 
+  // Country list
   const list = el('div', { className: 'region-selector-list' });
 
   regions.forEach((region) => {
@@ -159,23 +159,43 @@ function buildRegionSelector(section) {
     list.append(el('div', { className: 'region-selector-item' }, header, languages));
   });
 
-  const modalBody = el('div', { className: 'region-selector-modal-body' }, currentInfo, list);
-  const panel = el('div', { className: 'region-selector-panel' }, modalHeader, modalBody);
-  const modal = el('div', { className: 'region-selector-modal', 'aria-hidden': 'true' }, panel);
+  const dropdownBody = el('div', { className: 'region-selector-dropdown-body' }, currentInfo, list);
+  const dropdown = el('div', { className: 'region-selector-dropdown', 'aria-hidden': 'true' }, dropdownHeader, dropdownBody);
 
-  const toggleModal = (open) => {
-    modal.setAttribute('aria-hidden', String(!open));
+  const toggleDropdown = (open) => {
+    dropdown.setAttribute('aria-hidden', String(!open));
     openBtn.setAttribute('aria-expanded', String(open));
-    document.body.style.overflow = open ? 'hidden' : '';
   };
 
-  openBtn.addEventListener('click', () => toggleModal(true));
-  closeBtn.addEventListener('click', () => toggleModal(false));
-  modal.addEventListener('click', (e) => {
-    if (e.target === modal) toggleModal(false);
+  openBtn.addEventListener('click', () => {
+    const isOpen = openBtn.getAttribute('aria-expanded') === 'true';
+    toggleDropdown(!isOpen);
+    if (!isOpen) {
+      // Clamp dropdown so it doesn't go above viewport
+      requestAnimationFrame(() => {
+        const rect = dropdown.getBoundingClientRect();
+        if (rect.top < 0) {
+          dropdown.style.bottom = 'auto';
+          dropdown.style.top = `${-selectorWrapper.getBoundingClientRect().top + 8}px`;
+        }
+      });
+    } else {
+      dropdown.style.bottom = '';
+      dropdown.style.top = '';
+    }
+  });
+  closeBtn.addEventListener('click', () => toggleDropdown(false));
+
+  // Close on outside click
+  document.addEventListener('click', (e) => {
+    if (openBtn.getAttribute('aria-expanded') === 'true'
+      && !dropdown.contains(e.target)
+      && !openBtn.contains(e.target)) {
+      toggleDropdown(false);
+    }
   });
 
-  const selectorWrapper = el('div', { className: 'region-selector' }, currentRegion, modal);
+  const selectorWrapper = el('div', { className: 'region-selector' }, currentRegion, dropdown);
   regionParagraph.replaceWith(selectorWrapper);
 }
 
