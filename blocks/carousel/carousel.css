@@ -10,6 +10,13 @@ main .section.carousel-container > .default-content-wrapper {
   margin: 0 auto;
 }
 
+/* Edge-to-edge carousel strip: undo main section horizontal padding */
+main .section.carousel-container > div:not(.bg-image) {
+  padding-left: 0;
+  padding-right: 0;
+  margin: 0;
+}
+
 /* Heading: "Explore testimonials" — centered, light weight, matches original 56px */
 main .section.carousel-container h2 {
   text-align: center;
@@ -28,6 +35,10 @@ main .carousel-wrapper {
 /* ===================== CAROUSEL BLOCK ===================== */
 .carousel .carousel-slides-container {
   position: relative;
+  box-sizing: border-box;
+  width: 100vw;
+  max-width: none;
+  margin-inline: calc(50% - 50vw);
 }
 
 .carousel .carousel-slides,
@@ -43,9 +54,10 @@ main .carousel-wrapper {
   gap: var(--carousel-card-gap);
   scroll-behavior: smooth;
   scroll-snap-type: x mandatory;
+  scroll-padding-inline: 19.99%;
   overflow: auto hidden;
-  padding: 16px 4px 24px;
-  mask-image: linear-gradient(to right, transparent 0%, black 3%, black 85%, transparent 100%);
+  padding: 48px 19.99% 24px;
+  mask-image: linear-gradient(90deg, rgb(36 0 0 / 0%) 70px, rgb(9 9 121) 15%, rgb(36 0 0) 85%, rgb(9 9 121 / 0%) calc(100% - 70px));
 }
 
 .carousel .carousel-slides::-webkit-scrollbar {
@@ -72,7 +84,6 @@ main .carousel-wrapper {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 180px;
   height: 100%;
 }
 
@@ -108,7 +119,7 @@ main .carousel-wrapper {
   align-items: center;
   justify-content: flex-end;
   gap: 12px;
-  padding: 32px 0 0;
+  padding: 24px 0 0;
   z-index: 1;
 }
 
@@ -136,7 +147,7 @@ main .carousel-wrapper {
 .carousel .carousel-navigation-buttons button::after {
   display: block;
   content: '';
-  border: 2px solid var(--text-color, #27323a);
+  border: 1px solid #27323a;
   border-bottom: 0;
   border-left: 0;
   height: 10px;
@@ -160,7 +171,7 @@ main .carousel-wrapper {
 /* ===================== RESPONSIVE ===================== */
 @media (width >= 600px) {
   main .section.carousel-container {
-    padding: var(--carousel-section-padding);
+    padding: 64px 0;
   }
 
   main .section.carousel-container h2 {
@@ -168,6 +179,7 @@ main .carousel-wrapper {
     margin-bottom: 48px;
   }
 }
+
 
 @media (width < 600px) {
   .carousel .carousel-slide {
@@ -181,5 +193,24 @@ main .carousel-wrapper {
 
   .carousel .carousel-navigation-buttons {
     justify-content: center;
+  }
+}
+
+@media (width >= 1024px) {
+  .carousel .carousel-slides-container {
+    padding-bottom: 24px;
+  }
+
+  main .section.carousel-container {
+    max-width: 2272px;
+    margin: 0 auto;
+    overflow: auto hidden;
+  }
+
+  .carousel .carousel-slide p:first-child {
+    font-size: 22px;
+    font-weight: 200;
+    font-family: 'noto sans light italic', opensanslightitalic, 'open sans light italic', 'noto sans', notosansjp-light, notosanssc-light, sans-serif;
+    color: #5c656d;
   }
 }

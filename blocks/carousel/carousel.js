@@ -41,10 +41,9 @@ export default async function decorate(block) {
   slidesWrapper.setAttribute('aria-label', 'Carousel slides');
   block.prepend(slidesWrapper);
 
-  if (!isSingleSlide) {
-    const { indicatorsNav, buttonsContainer } = createSliderControls(rows.length);
-    block.append(indicatorsNav);
-    container.append(buttonsContainer);
+  const controls = !isSingleSlide ? createSliderControls(rows.length) : null;
+  if (controls) {
+    block.append(controls.indicatorsNav);
   }
 
   rows.forEach((row, idx) => {
@@ -55,6 +54,9 @@ export default async function decorate(block) {
   });
 
   container.append(slidesWrapper);
+  if (controls) {
+    container.append(controls.buttonsContainer);
+  }
   block.prepend(container);
 
   if (!isSingleSlide) {
