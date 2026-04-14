@@ -67,7 +67,8 @@ footer .footer .section:first-child a:hover {
 /* ===================== MIDDLE: monogram + social icons ===================== */
 footer .footer .section:nth-child(2) {
   background-color: rgb(55 58 62);
-  padding: 40px 24px 32px;
+  padding: 0 24px 10px;
+  padding-top:56px;
 }
 
 footer .footer .section:nth-child(2) > div {
@@ -78,7 +79,7 @@ footer .footer .section:nth-child(2) > div {
 
 /* Logo paragraph */
 footer .footer .section:nth-child(2) p:first-child {
-  margin-bottom: 24px;
+  margin-bottom: 48px;
 }
 
 footer .footer .section:nth-child(2) p:first-child img {
@@ -151,13 +152,20 @@ footer .footer .section:last-child p {
 
 /* Legal links (Fraud Alert | Government Notice | ... | Terms of Use) */
 footer .footer .footer-legal-links {
-  font-size: var(--body-font-size-m, 16px);
+  font-size: 16px;
+  font-family: var(--font-family-noto-regular);
+  font-weight: 600;
   color: var(--color-text-inverse, #fff);
 }
 
 footer .footer .footer-legal-links a {
   color: var(--color-text-inverse, #fff);
   white-space: nowrap;
+  margin-right: 10px;
+}
+
+footer .footer .footer-legal-links a ~ a {
+  margin-left: 8px;
 }
 
 /* Copyright, Equal Opportunity, Do Not Sell — these are links */
@@ -382,5 +390,29 @@ footer .footer .region-selector-item-languages a:hover {
   footer .footer .section:last-child {
     padding-left: 80px;
     padding-right: 80px;
+  }
+
+  footer .footer .footer-legal-links a:nth-of-type(3) {
+    margin-left: 0;
+  }
+
+  footer .footer .footer-legal-links a:first-of-type {
+    display: inline-block;
+    margin-bottom: 20px;
+  }
+}
+
+@media (width >= 1045px) {
+  footer .footer .footer-legal-links a {
+    margin-right: 6px;
+    margin-left: 6px;
+  }
+
+  footer .footer .footer-legal-links a:first-of-type {
+    margin-left: 0;
+  }
+
+  footer .footer .footer-legal-links a:nth-of-type(4) {
+    margin-left: 0;
   }
 }
