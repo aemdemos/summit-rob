@@ -156,6 +156,7 @@ footer .footer .footer-legal-links {
 
 footer .footer .footer-legal-links a {
   color: var(--color-text-inverse, #fff);
+  white-space: nowrap;
 }
 
 /* Copyright, Equal Opportunity, Do Not Sell — these are links */
@@ -356,7 +357,7 @@ footer .footer .region-selector-item-languages a:hover {
 
   /* Two-column layout: legal left, region selector right */
   footer .footer .section:last-child .default-content-wrapper {
-    grid-template-columns: 1fr auto;
+    grid-template-columns: 1fr 1fr;
   }
 
   footer .footer .section:last-child .footer-legal {
