@@ -483,6 +483,29 @@ main .section.dark a {
   color: var(--color-text-inverse);
 }
 
+/* Section metadata Style: section-dark */
+main .section.section-dark {
+  background-color: rgb(55 58 62);
+  color: var(--color-text-inverse);
+}
+
+main .section.section-dark h1,
+main .section.section-dark h2,
+main .section.section-dark h3,
+main .section.section-dark h4,
+main .section.section-dark h5,
+main .section.section-dark h6 {
+  color: var(--color-text-inverse);
+}
+
+main .section.section-dark p {
+  color: rgb(255 255 255 / 85%);
+}
+
+main .section.section-dark a {
+  color: var(--color-text-inverse);
+}
+
 main .section.warm {
   background-color: var(--color-bg-warm-gray);
 }

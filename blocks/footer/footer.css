@@ -10,7 +10,7 @@ footer {
 
 footer .footer > div {
   margin: auto;
-  max-width: var(--max-width-site, 1200px);
+  max-width: 1280px;
 }
 
 footer .footer p {
@@ -135,7 +135,6 @@ footer .footer .section:last-child > div {
 footer .footer .section:last-child .default-content-wrapper {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 24px;
 }
 
 
@@ -413,7 +412,7 @@ footer .footer .region-selector-item-languages a:hover {
 
 @media (width >= 1024px) {
   footer .footer .section:first-child {
-    padding: 56px 80px;
+    padding: 56px 0;
   }
 
   footer .footer .section:nth-child(2),
