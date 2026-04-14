@@ -1,0 +1,87 @@
+{
+  "triggerType": "both",
+  "columnCount": 2,
+  "hasImages": true,
+  "hasHoverBehavior": true,
+  "hasClickBehavior": true,
+  "hasBlockStructure": true,
+  "nestedLevels": 1,
+  "animationType": "slide-down",
+  "hoverOutBehavior": "close-on-leave",
+  "clickOutBehavior": "close-on-outside-click",
+  "overlayBehavior": { "hasOverlay": false },
+  "promotionalBlocks": true,
+  "gridStructure": "2-column: promo-card-left, links-right",
+  "columns": [
+    { "columnIndex": 0, "hasImages": true, "label": "Promo card with squircle image + text + CTA" },
+    { "columnIndex": 1, "hasImages": false, "label": "Navigation links" }
+  ],
+  "panels": [
+    {
+      "trigger": "Find Jobs",
+      "image": "sq1-nav-findjobs",
+      "promoText": "Control your career. Find the right role for you - remote, hybrid or on-site.",
+      "ctaText": "Find your next job",
+      "ctaHref": "/us/en/find-jobs",
+      "links": [
+        { "text": "Search jobs now", "href": "/us/en/jobs" },
+        { "text": "Find the right job type for you", "href": "/us/en/find-jobs/upload-resume" },
+        { "text": "Create a job alert", "href": "/us/en/find-jobs/job-alerts" },
+        { "text": "Explore how we help job seekers", "href": "/us/en/find-jobs/partner" }
+      ]
+    },
+    {
+      "trigger": "Hire Talent",
+      "image": "sq1-nav-hiretalent",
+      "promoText": "We're ready to help you hire talent at every level, from office support roles to C-suite.",
+      "ctaText": "Hire talent",
+      "ctaHref": "/us/en/hire-talent",
+      "links": [
+        { "text": "Contract talent", "href": "/us/en/hire-talent/flexible-staffing" },
+        { "text": "Permanent talent", "href": "/us/en/hire-talent/full-time-staffing" },
+        { "text": "Learn how we work with you", "href": "/us/en/hire-talent/partner" },
+        { "text": "Executive search", "href": "/us/en/hire-talent/executive-search" },
+        { "text": "Finance and Accounting", "href": "/us/en/accounting-finance" },
+        { "text": "Technology", "href": "/us/en/tech-it" },
+        { "text": "Marketing and Creative", "href": "/us/en/marketing-creative" },
+        { "text": "Legal", "href": "/us/en/legal" },
+        { "text": "Administrative and Customer Support", "href": "/us/en/administrative" }
+      ]
+    },
+    {
+      "trigger": "Explore Consulting Solutions",
+      "image": "sq1-nav-exploreconsultingsolutions",
+      "promoText": "See how our consulting capabilities can help transform your business.",
+      "ctaText": "Explore consulting solutions",
+      "ctaHref": "/us/en/consulting",
+      "links": [
+        { "text": "Technology", "href": "/us/en/consulting/tech" },
+        { "text": "Risk, Audit and Compliance", "href": "/us/en/consulting/risk-compliance-audit" },
+        { "text": "Finance and Accounting", "href": "/us/en/consulting/finance" },
+        { "text": "Digital, Marketing and Customer Experience", "href": "/us/en/consulting/digital" },
+        { "text": "Legal", "href": "/us/en/consulting/legal" },
+        { "text": "Operations", "href": "/us/en/consulting/administrative" },
+        { "text": "Human Resources", "href": "/us/en/consulting/human-resources" }
+      ]
+    },
+    {
+      "trigger": "Discover Insights",
+      "image": "sq1-nav-discoverinsights",
+      "promoText": "Make smarter decisions with the latest hiring trends and career insights.",
+      "ctaText": "Discover Insights",
+      "ctaHref": "/us/en/insights",
+      "links": [
+        { "text": "2026 Salary Guide", "href": "/us/en/insights/salary-guide" },
+        { "text": "Demand for Skilled Talent Report", "href": "/us/en/insights/salary-hiring-trends/demand-for-skilled-talent" },
+        { "text": "Building Future-Forward Tech Teams", "href": "/us/en/insights/building-tech-teams" },
+        { "text": "Job Market Outlook", "href": "/us/en/insights/job-market-outlook" },
+        { "text": "Press Room", "href": "https://press.roberthalf.com/" },
+        { "text": "Labor market overview", "href": "/us/en/insights/labor-market-overview" },
+        { "text": "AI in recruiting", "href": "/us/en/insights/ai-hiring-impact" },
+        { "text": "Navigating the AI era", "href": "/us/en/insights/navigating-ai-adoption" },
+        { "text": "Staffing for small businesses", "href": "/us/en/insights/small-business-overview" }
+      ]
+    }
+  ],
+  "confidence": 0.95
+}

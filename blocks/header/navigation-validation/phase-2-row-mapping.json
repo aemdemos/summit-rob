@@ -1,0 +1,31 @@
+{
+  "rows": [
+    {
+      "index": 0,
+      "alignmentGroups": ["left:logo", "center:nav-links", "right:tools"],
+      "spacing": { "gap": "24px", "padding": "0 32px" },
+      "backgroundDifference": false,
+      "elements": [
+        { "id": "logo", "type": "image-link", "href": "/us/en", "imgSrc": "Robert_Half_logo" },
+        { "id": "nav-find-jobs", "type": "nav-dropdown", "label": "Find Jobs", "href": "/us/en/find-jobs" },
+        { "id": "nav-hire-talent", "type": "nav-dropdown", "label": "Hire Talent", "href": "/us/en/hire-talent" },
+        { "id": "nav-consulting", "type": "nav-dropdown", "label": "Explore Consulting Solutions", "href": "/us/en/consulting" },
+        { "id": "nav-insights", "type": "nav-dropdown", "label": "Discover Insights", "href": "/us/en/insights" },
+        { "id": "search", "type": "icon-button", "icon": "search" },
+        { "id": "sign-in", "type": "text-link", "label": "Sign in", "href": "/login.rhlogin" }
+      ],
+      "hasImages": true,
+      "hasHoverBehavior": true,
+      "hasClickBehavior": true,
+      "hasMegamenuInRow": true,
+      "hasSearchForm": false,
+      "hasLocaleSelector": false,
+      "hasHamburgerIcon": true,
+      "hamburgerIconSelector": "button[aria-label='menu']",
+      "hamburgerClickBehavior": "toggles mobile nav drawer",
+      "hamburgerHoverEffect": null,
+      "hamburgerAnimation": "icon swap (hamburger to X via class toggle)"
+    }
+  ],
+  "confidence": 0.95
+}
