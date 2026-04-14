@@ -168,4 +168,43 @@ export default async function decorate(block) {
 
   ensureTablistClickDelegation(block, tablist);
   resyncTabsBlock(block);
+
+  // Build two-column layout: text left, image grid right
+  block.querySelectorAll('.tabs-panel').forEach((panel) => {
+    const contentDiv = panel.querySelector(':scope > div');
+    if (!contentDiv) return;
+
+    const pictures = contentDiv.querySelectorAll('picture');
+    if (pictures.length < 2) return;
+
+    // Wrap text content (everything except pictures) in a text column
+    const textCol = document.createElement('div');
+    textCol.className = 'tabs-text-col';
+
+    // Move non-picture children into text column
+    [...contentDiv.children].forEach((child) => {
+      if (!child.classList?.contains('tabs-image-grid') && !child.querySelector('picture') && child.tagName !== 'PICTURE') {
+        textCol.append(child);
+      }
+    });
+
+    // Build image grid with accent shapes
+    const grid = document.createElement('div');
+    grid.className = 'tabs-image-grid';
+
+    const accent = document.createElement('div');
+    accent.className = 'accent-shape';
+    grid.append(accent);
+
+    pictures.forEach((pic) => grid.append(pic));
+
+    // Remove any now-empty paragraphs
+    contentDiv.querySelectorAll('p').forEach((p) => {
+      if (!p.textContent.trim() && !p.querySelector('a, strong, em')) p.remove();
+    });
+
+    // Replace content with two-column layout
+    contentDiv.textContent = '';
+    contentDiv.append(textCol, grid);
+  });
 }
