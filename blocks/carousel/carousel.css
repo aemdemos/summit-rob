@@ -1,17 +1,28 @@
 @import url('./carousel-tokens.css');
 
 /* ===================== SECTION WRAPPER ===================== */
-main .carousel-wrapper {
+main .section.carousel-container {
   padding: var(--carousel-section-padding-mobile);
-  max-width: none;
 }
 
-main .carousel-wrapper h2 {
+main .section.carousel-container > .default-content-wrapper {
+  max-width: var(--max-width-site, 1200px);
+  margin: 0 auto;
+}
+
+/* Heading: "Explore testimonials" — centered, light weight, matches original 56px */
+main .section.carousel-container h2 {
   text-align: center;
   font-weight: 300;
   font-size: var(--heading-font-size-xl, 40px);
   color: var(--carousel-quote-color);
-  margin-bottom: 40px;
+  margin: 0 0 40px;
+  line-height: 1.15;
+}
+
+main .carousel-wrapper {
+  max-width: none;
+  padding: 0;
 }
 
 /* ===================== CAROUSEL BLOCK ===================== */
@@ -34,7 +45,7 @@ main .carousel-wrapper h2 {
   scroll-snap-type: x mandatory;
   overflow: auto hidden;
   padding: 16px 4px 24px;
-  mask-image: linear-gradient(to right, transparent 0%, black 0%, black 85%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 3%, black 85%, transparent 100%);
 }
 
 .carousel .carousel-slides::-webkit-scrollbar {
@@ -148,11 +159,11 @@ main .carousel-wrapper h2 {
 
 /* ===================== RESPONSIVE ===================== */
 @media (width >= 600px) {
-  main .carousel-wrapper {
+  main .section.carousel-container {
     padding: var(--carousel-section-padding);
   }
 
-  main .carousel-wrapper h2 {
+  main .section.carousel-container h2 {
     font-size: var(--heading-font-size-xxl, 56px);
     margin-bottom: 48px;
   }
