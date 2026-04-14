@@ -119,7 +119,7 @@ footer .footer .section:last-child {
   background-color: rgb(55 58 62);
   padding: 24px 24px 40px;
   color: rgb(255 255 255 / 70%);
-  font-size: var(--body-font-size-xs, 12px);
+  font-size: var(--body-font-size-s, 14px);
   line-height: 1.6;
 }
 
@@ -129,21 +129,54 @@ footer .footer .section:last-child > div {
   padding: 0;
   display: grid;
   grid-template-columns: 1fr;
-  gap: 24px 48px;
+  gap: 16px 48px;
 }
 
+/* Legal links row (Fraud Alert | Government Notice | ...) */
 footer .footer .section:last-child a {
-  color: rgb(255 255 255 / 70%);
+  color: var(--color-text-inverse, #fff);
   text-decoration: none;
 }
 
 footer .footer .section:last-child a:hover {
-  color: var(--color-text-inverse, #fff);
   text-decoration: underline;
 }
 
+/* First paragraph: legal links with pipe separators */
+footer .footer .section:last-child .default-content-wrapper > p:first-of-type {
+  font-size: var(--body-font-size-m, 16px);
+  color: var(--color-text-inverse, #fff);
+  margin-bottom: 4px;
+}
+
+footer .footer .section:last-child .default-content-wrapper > p:first-of-type a {
+  color: var(--color-text-inverse, #fff);
+}
+
+/* Terms of Use — same style as the legal links row */
+footer .footer .section:last-child .default-content-wrapper > p:nth-of-type(2) {
+  font-size: var(--body-font-size-m, 16px);
+  color: var(--color-text-inverse, #fff);
+  margin-bottom: 16px;
+}
+
+footer .footer .section:last-child .default-content-wrapper > p:nth-of-type(2) a {
+  color: var(--color-text-inverse, #fff);
+}
+
+/* Copyright + Equal Opportunity line */
+footer .footer .section:last-child .default-content-wrapper > p:nth-of-type(3) {
+  font-size: var(--body-font-size-xs, 12px);
+  color: rgb(255 255 255 / 70%);
+  margin-bottom: 4px;
+}
+
+footer .footer .section:last-child .default-content-wrapper > p:nth-of-type(3) a {
+  color: rgb(255 255 255 / 70%);
+}
+
 footer .footer .section:last-child p {
-  margin-bottom: 8px;
+  margin-bottom: 4px;
 }
 
 /* Region selector — right column on desktop */
