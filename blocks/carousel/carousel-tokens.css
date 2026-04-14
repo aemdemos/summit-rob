@@ -22,4 +22,5 @@
   --carousel-transition-duration: 0.2s;
   --carousel-section-padding: 64px 80px 80px;
   --carousel-section-padding-mobile: 48px 24px 56px;
+  --carousel-section-max-width: 2272px;
 }

@@ -6,7 +6,7 @@ main .section.carousel-container {
 }
 
 main .section.carousel-container > .default-content-wrapper {
-  max-width: var(--max-width-site, 1200px);
+  max-width: var(--carousel-section-max-width, 2272px);
   margin: 0 auto;
 }
 
@@ -27,18 +27,39 @@ main .section.carousel-container h2 {
   line-height: 1.15;
 }
 
-main .carousel-wrapper {
-  max-width: none;
+/* Up to viewport wide, capped at carousel section max width, centered */
+main .section.carousel-container .carousel-wrapper {
+  box-sizing: border-box;
+  width: 100vw;
+  max-width: var(--carousel-section-max-width, 2272px);
+  margin-inline: 0;
   padding: 0;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+main .section.carousel-container .carousel {
+  width: 100%;
+  max-width: none;
+}
+
+/* Wrapper is already 100vw — avoid nested translate */
+main .section.carousel-container .carousel-wrapper .carousel .carousel-slides-container {
+  width: 100%;
+  left: auto;
+  transform: none;
 }
 
 /* ===================== CAROUSEL BLOCK ===================== */
 .carousel .carousel-slides-container {
   position: relative;
   box-sizing: border-box;
-  width: 100vw;
-  max-width: none;
-  margin-inline: calc(50% - 50vw);
+  width: min(100vw, var(--carousel-section-max-width, 2272px));
+  max-width: var(--carousel-section-max-width, 2272px);
+  margin-inline: 0;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .carousel .carousel-slides,
@@ -57,7 +78,15 @@ main .carousel-wrapper {
   scroll-padding-inline: 19.99%;
   overflow: auto hidden;
   padding: 48px 19.99% 24px;
-  mask-image: linear-gradient(90deg, rgb(36 0 0 / 0%) 70px, rgb(9 9 121) 15%, rgb(36 0 0) 85%, rgb(9 9 121 / 0%) calc(100% - 70px));
+  mask-image: linear-gradient(
+    90deg,
+    rgb(0 0 0 / 0%) 0,
+    rgb(0 0 0 / 100%) calc(19.99% + 72px),
+    rgb(0 0 0 / 100%) calc(100% - 19.99% - 72px),
+    rgb(0 0 0 / 0%) 100%
+  );
+  mask-repeat: no-repeat;
+  mask-size: 100% 100%;
 }
 
 .carousel .carousel-slides::-webkit-scrollbar {
@@ -202,15 +231,63 @@ main .carousel-wrapper {
   }
 
   main .section.carousel-container {
-    max-width: 2272px;
+    max-width: var(--carousel-section-max-width, 2272px);
     margin: 0 auto;
-    overflow: auto hidden;
+
+    /* auto/hidden clips the 100vw slides strip on the left (left mask vanishes) */
+    overflow: visible;
   }
 
   .carousel .carousel-slide p:first-child {
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 200;
     font-family: 'noto sans light italic', opensanslightitalic, 'open sans light italic', 'noto sans', notosansjp-light, notosanssc-light, sans-serif;
     color: #5c656d;
+  }
+
+  .carousel .carousel-navigation-buttons {
+    margin-right: 10.99%;
+  }
+
+  .carousel .carousel-slides {
+    mask-image: linear-gradient(
+      90deg,
+      rgb(36 0 0 / 0%) 70px,
+      rgb(9 9 121) 15%,
+      rgb(36 0 0) 85%,
+      rgb(9 9 121 / 0%) calc(100% - 70px)
+    );
+    mask-repeat: no-repeat;
+    mask-size: 100% 100%;
+  }
+}
+
+@media (width > 1128px) {
+  .carousel .carousel-navigation-buttons {
+    margin-right: 14.54%;
+  }
+}
+
+@media (width > 1232px) {
+  .carousel .carousel-navigation-buttons {
+    margin-right: 17.45%;
+  }
+}
+
+@media (width > 1336px) {
+  .carousel .carousel-navigation-buttons {
+    margin-right: 19.99%;
+  }
+}
+
+@media (width >= 1440px) {
+  .carousel .carousel-slides {
+    mask-image: linear-gradient(
+      90deg,
+      rgb(36 0 0 / 0%) 96px,
+      rgb(9 9 121) 12.5%,
+      rgb(36 0 0) 87.5%,
+      rgb(9 9 121 / 0%) calc(100% - 96px)
+    );
   }
 }
