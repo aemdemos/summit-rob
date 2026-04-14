@@ -73,6 +73,9 @@ export function activateTabPanel(blockEl, panelEl) {
     tabBtn.setAttribute('aria-selected', 'true');
   }
   requestAnimationFrame(() => {
+    if (tabBtn && tablist?.contains(tabBtn)) {
+      tabBtn.scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: 'instant' });
+    }
     blockEl.scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: 'instant' });
   });
 }
