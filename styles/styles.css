@@ -45,6 +45,7 @@
   --fixed-font-family: 'Roboto Mono', menlo, consolas, monospace;
   --font-family-noto-regular: Noto Sans Regular, OpenSansRegular, Open Sans Regular, Noto Sans;
   --font-family-noto-semibold: Noto Sans SemiBold, OpenSansSemiBold, Open Sans SemiBold, Noto Sans, NotoSansJP-Medium, NotoSansSC-Medium, sans-serif;
+  --font-family-noto-medium: Noto Sans Medium, OpenSansMedium, Open Sans Medium, Noto Sans, NotoSansJP-Medium, NotoSansSC-Medium, sans-serif;
 
   /* Heading sizes (mobile-first) */
   --heading-font-size-xxl: 36px;
