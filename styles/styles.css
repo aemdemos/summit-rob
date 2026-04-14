@@ -43,6 +43,9 @@
   --heading-font-family: 'Noto Sans Display', 'Noto Sans', noto-sans-display-fallback, sans-serif;
   --body-font-family: 'Noto Sans', noto-sans-fallback, sans-serif;
   --fixed-font-family: 'Roboto Mono', menlo, consolas, monospace;
+  --font-family-noto-regular: noto sans regular, opensansregular, open sans regular, noto sans;
+  --font-family-noto-semibold: noto sans semibold, opensanssemibold, open sans semibold, noto sans, notosansjp-medium, notosanssc-medium, sans-serif;
+  --font-family-noto-medium: noto sans medium, opensansmedium, open sans medium, noto sans, notosansjp-medium, notosanssc-medium, sans-serif;
 
   /* Heading sizes (mobile-first) */
   --heading-font-size-xxl: 36px;
@@ -184,6 +187,19 @@ footer .footer {
 header .header[data-block-status="loaded"],
 footer .footer[data-block-status="loaded"] {
   visibility: visible;
+}
+
+/* Footer block: span full layout width (avoid inheriting main content max-width from wrappers) */
+footer .footer.block {
+  width: 100%;
+  max-width: none;
+}
+
+/* Footer block placed inside main (authored layout): section inner column must not cap footer width */
+main > .section:has(.footer.block) > div:not(.bg-image) {
+  max-width: none;
+  width: 100%;
+  padding: 0;
 }
 
 /* ===================== HEADINGS ===================== */
@@ -477,6 +493,29 @@ main .section.dark p {
 }
 
 main .section.dark a {
+  color: var(--color-text-inverse);
+}
+
+/* Section metadata Style: section-dark */
+main .section.section-dark {
+  background-color: rgb(55 58 62);
+  color: var(--color-text-inverse);
+}
+
+main .section.section-dark h1,
+main .section.section-dark h2,
+main .section.section-dark h3,
+main .section.section-dark h4,
+main .section.section-dark h5,
+main .section.section-dark h6 {
+  color: var(--color-text-inverse);
+}
+
+main .section.section-dark p {
+  color: rgb(255 255 255 / 85%);
+}
+
+main .section.section-dark a {
   color: var(--color-text-inverse);
 }
 
