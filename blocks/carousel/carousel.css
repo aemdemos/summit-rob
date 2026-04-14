@@ -1,5 +1,20 @@
 @import url('./carousel-tokens.css');
 
+/* ===================== SECTION WRAPPER ===================== */
+main .carousel-wrapper {
+  padding: var(--carousel-section-padding-mobile);
+  max-width: none;
+}
+
+main .carousel-wrapper h2 {
+  text-align: center;
+  font-weight: 300;
+  font-size: var(--heading-font-size-xl, 40px);
+  color: var(--carousel-quote-color);
+  margin-bottom: 40px;
+}
+
+/* ===================== CAROUSEL BLOCK ===================== */
 .carousel .carousel-slides-container {
   position: relative;
 }
@@ -11,93 +26,78 @@
   padding: 0;
 }
 
+/* Horizontal scrolling card strip */
 .carousel .carousel-slides {
   display: flex;
+  gap: var(--carousel-card-gap);
   scroll-behavior: smooth;
   scroll-snap-type: x mandatory;
-  overflow: scroll clip;
+  overflow: auto hidden;
+  padding: 16px 4px 24px;
+  mask-image: linear-gradient(to right, transparent 0%, black 0%, black 85%, transparent 100%);
 }
 
 .carousel .carousel-slides::-webkit-scrollbar {
   display: none;
 }
 
+/* ===================== SLIDE / CARD ===================== */
 .carousel .carousel-slide {
-  flex: 0 0 100%;
+  flex: 0 0 auto;
+  width: min(80vw, 600px);
+  min-width: var(--carousel-card-min-width);
   scroll-snap-align: start;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
   position: relative;
-  width: 100%;
-  min-height: min(50vw, calc(100dvh - var(--header-height)));
 }
 
-.carousel .carousel-slide:has(.carousel-slide-content[data-align='center']) {
-  align-items: center;
-}
-
-.carousel .carousel-slide:has(.carousel-slide-content[data-align='right']) {
-  align-items: flex-end;
-}
-
-.carousel .carousel-slide .carousel-slide-image picture {
-  position: absolute;
-  inset: 0;
-}
-
-.carousel .carousel-slide .carousel-slide-image picture > img {
-  height: 100%;
-  width: 100%;
-  object-fit: cover;
-}
-
-.carousel .carousel-slide .carousel-slide-content {
-  z-index: 1;
-  margin: var(--carousel-content-margin);
-  padding: var(--carousel-content-padding);
-  color: white;
-  background-color: var(--carousel-content-background);
-  position: relative;
-  width: var(--slide-content-width, auto);
-}
-
-.carousel .carousel-slide-indicators {
+/* The inner content div becomes the card */
+.carousel .carousel-slide > div {
+  background: var(--carousel-card-bg);
+  border-radius: var(--carousel-card-radius);
+  box-shadow: var(--carousel-card-shadow);
+  padding: var(--carousel-card-padding);
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: var(--carousel-indicators-gap);
-  padding: var(--carousel-indicators-padding);
-  background-color: var(--light-color);
-  line-height: 0;
-}
-
-.carousel .carousel-slide-indicator button {
-  width: var(--carousel-indicator-size);
-  height: var(--carousel-indicator-size);
-  margin: 0;
-  padding: 0;
-  border-radius: 50%;
-  background-color: var(--carousel-indicator-background);
-  transition: background-color var(--carousel-transition-duration);
-}
-
-.carousel .carousel-slide-indicator button:disabled,
-.carousel .carousel-slide-indicator button:hover,
-.carousel .carousel-slide-indicator button:focus-visible {
-  background-color: var(--carousel-indicator-active-background);
-}
-
-.carousel .carousel-navigation-buttons {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  left: var(--carousel-nav-inset);
-  right: var(--carousel-nav-inset);
-  display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: space-between;
+  min-height: 180px;
+  height: 100%;
+}
+
+/* ===================== QUOTE TEXT ===================== */
+.carousel .carousel-slide p:first-child {
+  font-size: var(--carousel-quote-font-size);
+  font-weight: 300;
+  font-style: italic;
+  line-height: var(--carousel-quote-line-height);
+  color: var(--carousel-quote-color);
+  margin: 0 0 24px;
+}
+
+/* ===================== ATTRIBUTION ===================== */
+.carousel .carousel-slide p:last-child {
+  font-size: var(--carousel-attribution-font-size);
+  font-weight: 400;
+  color: var(--carousel-quote-color);
+  margin: 0;
+}
+
+.carousel .carousel-slide p:last-child strong {
+  font-weight: 400;
+}
+
+/* ===================== NAV BUTTONS ===================== */
+
+/* Move nav buttons below the cards, right-aligned */
+.carousel .carousel-navigation-buttons {
+  position: static;
+  transform: none;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 32px 0 0;
   z-index: 1;
 }
 
@@ -108,24 +108,28 @@
   height: var(--carousel-nav-button-size);
   margin: 0;
   border-radius: 50%;
+  border: var(--carousel-nav-button-border);
   padding: 0;
   background-color: var(--carousel-nav-button-background);
-  transition: background-color var(--carousel-transition-duration);
+  transition: background-color var(--carousel-transition-duration), border-color var(--carousel-transition-duration);
+  cursor: pointer;
 }
 
 .carousel .carousel-navigation-buttons button:hover,
 .carousel .carousel-navigation-buttons button:focus-visible {
   background-color: var(--carousel-nav-button-hover-background);
+  border-color: #999;
 }
 
+/* Chevron arrows */
 .carousel .carousel-navigation-buttons button::after {
   display: block;
   content: '';
-  border: 2px solid;
+  border: 2px solid var(--text-color, #27323a);
   border-bottom: 0;
   border-left: 0;
-  height: 12px;
-  width: 12px;
+  height: 10px;
+  width: 10px;
   position: absolute;
   top: 50%;
   left: calc(50% + 2px);
@@ -137,19 +141,34 @@
   left: calc(50% - 2px);
 }
 
+/* ===================== SLIDE INDICATORS (dots) ===================== */
+.carousel .carousel-slide-indicators {
+  display: none;
+}
+
+/* ===================== RESPONSIVE ===================== */
 @media (width >= 600px) {
+  main .carousel-wrapper {
+    padding: var(--carousel-section-padding);
+  }
+
+  main .carousel-wrapper h2 {
+    font-size: var(--heading-font-size-xxl, 56px);
+    margin-bottom: 48px;
+  }
+}
+
+@media (width < 600px) {
+  .carousel .carousel-slide {
+    width: 85vw;
+    min-width: 280px;
+  }
+
+  .carousel .carousel-slide > div {
+    padding: 28px 32px;
+  }
+
   .carousel .carousel-navigation-buttons {
-    left: var(--carousel-nav-inset-desktop);
-    right: var(--carousel-nav-inset-desktop);
-  }
-
-  .carousel .carousel-slide .carousel-slide-content {
-    --slide-content-width: calc((100% - 184px) / 2);
-
-    margin: var(--carousel-content-margin-desktop);
-  }
-
-  .carousel .carousel-slide .carousel-slide-content[data-align='justify'] {
-    --slide-content-width: auto;
+    justify-content: center;
   }
 }
