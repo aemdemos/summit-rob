@@ -167,6 +167,8 @@ function buildRegionSelector(section) {
     openBtn.setAttribute('aria-expanded', String(open));
   };
 
+  const selectorWrapper = el('div', { className: 'region-selector' }, currentRegion, dropdown);
+
   openBtn.addEventListener('click', () => {
     const isOpen = openBtn.getAttribute('aria-expanded') === 'true';
     toggleDropdown(!isOpen);
@@ -195,7 +197,6 @@ function buildRegionSelector(section) {
     }
   });
 
-  const selectorWrapper = el('div', { className: 'region-selector' }, currentRegion, dropdown);
   regionParagraph.replaceWith(selectorWrapper);
 }
 
