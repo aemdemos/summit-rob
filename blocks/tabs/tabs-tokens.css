@@ -9,9 +9,8 @@
   --tabs-tab-inactive-weight: 400;
   --tabs-tab-color: var(--text-color, #27323a);
   --tabs-tab-padding: 16px 24px 16px 0;
-  --tabs-section-padding: 80px;
+  --tabs-section-padding: 64px;
   --tabs-section-padding-mobile: 48px 24px;
-  --tabs-section-max-width: 1200px;
   --tabs-desc-font-size: 22px;
   --tabs-desc-line-height: 33px;
   --tabs-heading-font-size: 56px;
