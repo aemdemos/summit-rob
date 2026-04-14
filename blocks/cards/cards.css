@@ -53,3 +53,8 @@
   aspect-ratio: var(--cards-image-aspect-ratio);
   object-fit: var(--cards-image-object-fit);
 }
+
+/* Section horizontal inset for cards (matches carousel strip alignment) */
+main .section.cards-container > div:not(.bg-image) {
+  padding: 0 10.99%;
+}
