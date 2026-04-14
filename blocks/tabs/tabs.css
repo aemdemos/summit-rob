@@ -298,5 +298,47 @@ main .section.tabs-container h2 {
    margin-top: 64px;
   }
 
+  main > .section.tabs-container > div:not(.bg-image) {
+    padding:0;
+  }
 
+  main .section.tabs-container h2 {
+    width: 70%;
+    font-size: 56px;
+    font-family: "notosans display light", opensanslight, "open sans light", notosans, notosansjp-light, notosanssc-light, sans-serif;   
+  }
+
+  .tabs .tabs-text-col > p:first-child {
+    font-family:"Noto Sans Regular", OpenSansRegular, "Open Sans Regular", "Noto Sans", NotoSansJP-Regular, NotoSansSC-Regular, sans-serif;
+   font-size: 18px;
+  }
+
+  .tabs .tabs-text-col h5 {
+  font-family: "Noto Sans SemiBold", OpenSansSemiBold, "Open Sans SemiBold", "Noto Sans", NotoSansJP-Medium, NotoSansSC-Medium, sans-serif;
+  font-size: 22px;
+  margin-top: 45px;
+  margin-bottom: 24px;
+ }
+
+ .tabs .tabs-list button {
+  font-size:21px;
+  font-family: "Noto Sans Medium", OpenSansMedium, "Open Sans Medium", "Noto Sans", NotoSansJP-Medium, NotoSansSC-Medium, sans-serif;
+  margin-left: 24px;
+  margin-right: 24px;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.tabs .tabs-list button:first-of-type {
+  margin-left: 0;
+}
+
+.tabs .tabs-text-col ul {
+  gap: 16px 60px;
+}
+
+.tabs .tabs-text-col li a {
+  font-size: 17px;
+  font-family:"Noto Sans Regular", OpenSansRegular, "Open Sans Regular", "Noto Sans", NotoSansJP-Regular, NotoSansSC-Regular, sans-serif;
+}
 }
