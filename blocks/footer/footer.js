@@ -199,7 +199,9 @@ function buildRegionSelector(section) {
 
   regionParagraph.replaceWith(selectorWrapper);
 
-  // Classify remaining paragraphs for CSS styling
+  // Restructure: wrap legal paragraphs in a container so CSS grid
+  // can place legal-left and region-selector-right as two columns
+  const legalWrapper = el('div', { className: 'footer-legal' });
   const remainingParagraphs = [...wrapper.querySelectorAll(':scope > p')];
   remainingParagraphs.forEach((p) => {
     const text = p.textContent.trim();
@@ -209,7 +211,11 @@ function buildRegionSelector(section) {
     } else {
       p.classList.add('footer-copyright');
     }
+    legalWrapper.append(p);
   });
+
+  // Insert legal wrapper before the region selector in the wrapper
+  wrapper.insertBefore(legalWrapper, selectorWrapper);
 }
 
 /**

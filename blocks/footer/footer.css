@@ -127,9 +127,13 @@ footer .footer .section:last-child > div {
   max-width: var(--max-width-site, 1200px);
   margin: auto;
   padding: 0;
+}
+
+/* Two-column layout: legal (left) + region selector (right) */
+footer .footer .section:last-child .default-content-wrapper {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 16px 48px;
+  gap: 24px;
 }
 
 footer .footer .section:last-child a {
@@ -145,38 +149,35 @@ footer .footer .section:last-child p {
 }
 
 /* Legal links (Fraud Alert | Government Notice | ... | Terms of Use) */
-footer .footer .section:last-child .footer-legal-links {
+footer .footer .footer-legal-links {
   font-size: var(--body-font-size-m, 16px);
   color: var(--color-text-inverse, #fff);
 }
 
-footer .footer .section:last-child .footer-legal-links a {
+footer .footer .footer-legal-links a {
   color: var(--color-text-inverse, #fff);
 }
 
-/* Copyright, Equal Opportunity, Do Not Sell */
-footer .footer .section:last-child .footer-copyright {
+/* Copyright, Equal Opportunity, Do Not Sell — these are links */
+footer .footer .footer-copyright {
   font-size: var(--body-font-size-xs, 12px);
   color: rgb(255 255 255 / 70%);
 }
 
-footer .footer .section:last-child .footer-copyright a {
+footer .footer .footer-copyright a {
   color: rgb(255 255 255 / 70%);
+  text-decoration: underline;
 }
 
-footer .footer .section:last-child .footer-copyright:first-of-type {
+footer .footer .footer-copyright:first-of-type {
   margin-top: 12px;
-}
-
-/* Region selector — right column on desktop */
-footer .footer .section:last-child > .default-content-wrapper > .region-selector {
-  text-align: right;
 }
 
 /* ===================== REGION SELECTOR (dropdown) ===================== */
 footer .footer .region-selector {
   position: relative;
   margin-bottom: 16px;
+  text-align: right;
 }
 
 footer .footer .region-selector-current {
@@ -354,13 +355,18 @@ footer .footer .region-selector-item-languages a:hover {
   }
 
   /* Two-column layout: legal left, region selector right */
-  footer .footer .section:last-child > div {
+  footer .footer .section:last-child .default-content-wrapper {
     grid-template-columns: 1fr auto;
   }
 
-  footer .footer .section:last-child > .default-content-wrapper > .region-selector {
+  footer .footer .section:last-child .footer-legal {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  footer .footer .section:last-child .region-selector {
     grid-column: 2;
-    grid-row: 1 / -1;
+    grid-row: 1;
     align-self: start;
   }
 }
