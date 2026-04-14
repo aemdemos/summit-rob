@@ -2,6 +2,23 @@
 import { moveInstrumentation, getBlockId } from '../../scripts/scripts.js';
 
 /**
+ * Scrolls the selected tab chip into view inside the horizontal tab list.
+ * @param {Element} tablist
+ * @param {Element} tabButton
+ * @param {'auto' | 'smooth'} [behavior]
+ */
+function scrollTabChipIntoView(tablist, tabButton, behavior = 'smooth') {
+  if (!tablist?.contains(tabButton)) return;
+  requestAnimationFrame(() => {
+    tabButton.scrollIntoView({
+      behavior,
+      block: 'nearest',
+      inline: 'nearest',
+    });
+  });
+}
+
+/**
  * @param {Element} block
  * @param {Element} tablist
  */
@@ -31,7 +48,60 @@ function ensureTablistClickDelegation(block, tablist) {
     });
     tabpanel.setAttribute('aria-hidden', false);
     button.setAttribute('aria-selected', true);
+    scrollTabChipIntoView(tablist, button, 'smooth');
   });
+}
+
+/**
+ * Prev/next controls below the tab list (carousel-style). DOM order: tablist → nav → panels.
+ * @param {Element} block
+ */
+function ensureTabsNavigation(block) {
+  const tablist = block.querySelector(':scope > .tabs-list');
+  if (!tablist) return;
+
+  const tabButtons = tablist.querySelectorAll(':scope > button.tabs-tab');
+  let nav = block.querySelector(':scope > .tabs-navigation-buttons');
+
+  if (tabButtons.length < 2) {
+    nav?.remove();
+    return;
+  }
+
+  if (!nav) {
+    nav = document.createElement('div');
+    nav.className = 'tabs-navigation-buttons';
+    nav.setAttribute('role', 'toolbar');
+    nav.setAttribute('aria-label', 'Tab navigation');
+
+    const prevBtn = document.createElement('button');
+    prevBtn.type = 'button';
+    prevBtn.className = 'slide-prev';
+    prevBtn.setAttribute('aria-label', 'Previous tab');
+
+    const nextBtn = document.createElement('button');
+    nextBtn.type = 'button';
+    nextBtn.className = 'slide-next';
+    nextBtn.setAttribute('aria-label', 'Next tab');
+
+    nav.append(prevBtn, nextBtn);
+
+    const activateByDelta = (delta) => {
+      const tabs = [...tablist.querySelectorAll(':scope > button.tabs-tab')];
+      if (tabs.length < 2) return;
+      let i = tabs.findIndex((b) => b.getAttribute('aria-selected') === 'true');
+      if (i === -1) i = 0;
+      const idx = (i + delta + tabs.length) % tabs.length;
+      tabs[idx].click();
+    };
+
+    prevBtn.addEventListener('click', () => activateByDelta(-1));
+    nextBtn.addEventListener('click', () => activateByDelta(1));
+  }
+
+  if (nav.previousElementSibling !== tablist) {
+    tablist.insertAdjacentElement('afterend', nav);
+  }
 }
 
 /**
@@ -148,6 +218,12 @@ export function resyncTabsBlock(block) {
   });
 
   ensureTablistClickDelegation(block, tablist);
+  ensureTabsNavigation(block);
+
+  const activeBtn = tablist.querySelector(':scope > button.tabs-tab[aria-selected="true"]');
+  if (activeBtn) {
+    scrollTabChipIntoView(tablist, activeBtn, 'auto');
+  }
 }
 
 export default async function decorate(block) {
@@ -168,4 +244,43 @@ export default async function decorate(block) {
 
   ensureTablistClickDelegation(block, tablist);
   resyncTabsBlock(block);
+
+  // Build two-column layout: text left, image grid right
+  block.querySelectorAll('.tabs-panel').forEach((panel) => {
+    const contentDiv = panel.querySelector(':scope > div');
+    if (!contentDiv) return;
+
+    const pictures = contentDiv.querySelectorAll('picture');
+    if (pictures.length < 2) return;
+
+    // Wrap text content (everything except pictures) in a text column
+    const textCol = document.createElement('div');
+    textCol.className = 'tabs-text-col';
+
+    // Move non-picture children into text column
+    [...contentDiv.children].forEach((child) => {
+      if (!child.classList?.contains('tabs-image-grid') && !child.querySelector('picture') && child.tagName !== 'PICTURE') {
+        textCol.append(child);
+      }
+    });
+
+    // Build image grid with accent shapes
+    const grid = document.createElement('div');
+    grid.className = 'tabs-image-grid';
+
+    const accent = document.createElement('div');
+    accent.className = 'accent-shape';
+    grid.append(accent);
+
+    pictures.forEach((pic) => grid.append(pic));
+
+    // Remove any now-empty paragraphs
+    contentDiv.querySelectorAll('p').forEach((p) => {
+      if (!p.textContent.trim() && !p.querySelector('a, strong, em')) p.remove();
+    });
+
+    // Replace content with two-column layout
+    contentDiv.textContent = '';
+    contentDiv.append(textCol, grid);
+  });
 }
