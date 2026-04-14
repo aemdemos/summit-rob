@@ -203,6 +203,11 @@ main .section.tabs-container h2 {
   z-index: 0;
 }
 
+/* main img { max-width: 100% } otherwise caps these when <picture> shrink-wraps to intrinsic (~55px from srcset) */
+.tabs .tabs-panel .tabs-image-grid picture img {
+  max-width: none;
+}
+
 /* Main image (large, front) */
 .tabs .tabs-panel .tabs-image-grid picture:first-of-type {
   position: relative;
@@ -225,7 +230,9 @@ main .section.tabs-container h2 {
   position: absolute;
   z-index: 2;
   top: 204px;
-  right: 0;
+  left: 425px;
+  width: 144px;
+  height: 144px;
 }
 
 .tabs .tabs-panel .tabs-image-grid picture:nth-of-type(2) img {
@@ -239,13 +246,15 @@ main .section.tabs-container h2 {
 .tabs .tabs-panel .tabs-image-grid picture:nth-of-type(3) {
   position: absolute;
   z-index: 2;
-  bottom: 0;
+  top: 370px;
   left: 277px;
+  width: 144px;
+  height: 144px;
 }
 
 .tabs .tabs-panel .tabs-image-grid picture:nth-of-type(3) img {
   width: 144px;
-  height: 144px;
+  height: 144px; 
   object-fit: cover;
   border-radius: 30%;
 }
@@ -292,7 +301,7 @@ main .section.tabs-container h2 {
 @media (width >= 1024px) {
   main .section.tabs-container {
    margin:0 auto;
-   max-width: 1280px;
+   max-width: 1152px;
    border-radius: 32px;
    margin-bottom: 64px;
    margin-top: 64px;
@@ -335,10 +344,22 @@ main .section.tabs-container h2 {
 
 .tabs .tabs-text-col ul {
   gap: 16px 60px;
+  margin-bottom: 48px;
 }
 
 .tabs .tabs-text-col li a {
   font-size: 17px;
   font-family:"Noto Sans Regular", OpenSansRegular, "Open Sans Regular", "Noto Sans", NotoSansJP-Regular, NotoSansSC-Regular, sans-serif;
 }
+
+
+.tabs .tabs-text-col > p:last-child a {
+  font-size: 18px;
+  font-family:"Noto Sans Regular", OpenSansRegular, "Open Sans Regular", "Noto Sans", NotoSansJP-Regular, NotoSansSC-Regular, sans-serif;
+}
+
+.tabs .tabs-text-col > p:last-child a:hover {
+  text-decoration: none;
+}
+
 }
