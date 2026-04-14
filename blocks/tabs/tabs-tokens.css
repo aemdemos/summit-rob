@@ -1,6 +1,25 @@
-/* tabs design tokens */
+/* tabs design tokens — Robert Half style */
 :root {
-  --tabs-panel-padding: 24px;
-  --tabs-border-color: #dadada;
+  --tabs-panel-padding: 48px 0;
+  --tabs-border-color: #e0e0e0;
+  --tabs-active-border-color: var(--dark-color, #033941);
   --tabs-transition-duration: 0.2s;
+  --tabs-tab-font-size: 18px;
+  --tabs-tab-active-weight: 700;
+  --tabs-tab-inactive-weight: 400;
+  --tabs-tab-color: var(--text-color, #27323a);
+  --tabs-tab-padding: 16px 24px 16px 0;
+  --tabs-section-padding: 80px;
+  --tabs-section-padding-mobile: 48px 24px;
+  --tabs-section-max-width: 1200px;
+  --tabs-desc-font-size: 22px;
+  --tabs-desc-line-height: 33px;
+  --tabs-heading-font-size: 56px;
+  --tabs-heading-font-weight: 300;
+  --tabs-trending-font-size: 20px;
+  --tabs-trending-font-weight: 700;
+  --tabs-link-color: var(--link-color, #005c9e);
+  --tabs-cta-color: var(--link-color, #005c9e);
+  --tabs-accent-color-1: rgb(209 218 226 / 40%);
+  --tabs-accent-color-2: rgb(228 235 241 / 40%);
 }
