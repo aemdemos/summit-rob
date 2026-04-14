@@ -326,7 +326,7 @@ main .section.tabs-container h2 {
 
   .tabs .tabs-panel > div {
     grid-template-columns: 7fr 5fr;
-    gap: 48px;
+    gap: 64px;
   }
 }
 
@@ -362,11 +362,12 @@ main .section.tabs-container h2 {
 
 @media (width >= 1024px) {
   main .section.tabs-container {
-   margin:0 auto;
-   max-width: 1152px;
-   border-radius: 32px;
-   margin-bottom: 64px;
-   margin-top: 64px;
+    margin: 0 auto;
+    min-width: 100vw;
+    max-width: 1152px;
+    border-radius: 32px;
+    margin-bottom: 64px;
+    margin-top: 64px;
   }
 
   main > .section.tabs-container > div:not(.bg-image) {
