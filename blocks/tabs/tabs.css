@@ -3,6 +3,7 @@
 /* ===================== SECTION WRAPPER ===================== */
 main .section.tabs-container {
   padding: var(--tabs-section-padding-mobile);
+  background-color: #f1f5f8;
 }
 
 main .section.tabs-container > .default-content-wrapper {
@@ -74,7 +75,6 @@ main .section.tabs-container h2 {
   padding: var(--tabs-panel-padding);
   border: none;
   overflow: visible;
-  max-width: var(--tabs-section-max-width);
   margin-left: auto;
   margin-right: auto;
 }
@@ -283,5 +283,20 @@ main .section.tabs-container h2 {
     min-height: 300px;
     transform: scale(0.7);
     transform-origin: top left;
+    padding-left:0;
+    padding-right:0;
+
   }
+}
+
+@media (width >= 1024px) {
+  main .section.tabs-container {
+   margin:0 auto;
+   max-width: 1280px;
+   border-radius: 32px;
+   margin-bottom: 64px;
+   margin-top: 64px;
+  }
+
+
 }
