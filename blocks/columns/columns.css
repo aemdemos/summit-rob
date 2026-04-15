@@ -23,7 +23,7 @@
 
 /*
  * Icon + heading layout (pixel-perfect from original):
- *   - Icon (40px, muted #5a7a8a stroke) and heading (22px/600/#27323a) sit on the SAME LINE
+ *   - Icon (40px grid column; img forced to black via filter) and heading (22px/600/#27323a) on the SAME LINE
  *   - 16px gap between icon and heading
  *   - Description paragraph below, LEFT-ALIGNED with the heading (indented 56px past the icon)
  *   - 32px vertical gap between each icon-heading-description group
@@ -65,7 +65,7 @@
   font-weight: 400;
   line-height: 1.5;
   color: #27323a;
-  margin: 0 0 32px;
+  margin: 0 0 24px;
 }
 
 /* Last description: no bottom margin */
@@ -73,16 +73,26 @@
   margin-bottom: 0;
 }
 
-/* Icon: 40px muted stroke */
+/* Icon column: stroke icons are <img>; color is applied via filter, not color */
 .columns > div > div:not(.columns-img-col) .icon {
   display: inline-block;
-  width: 40px;
-  height: 40px;
+  width: 48px;
+  height: 48px;
 }
 
 .columns > div > div:not(.columns-img-col) .icon img {
-  width: 40px;
-  height: 40px;
+  display: block;
+  width: 50px;
+  height: 48px;
+  object-fit: contain;
+
+  /* Black stroke; minimal cardinal drop-shadows for slight line weight. */
+  filter:
+    brightness(0)
+    drop-shadow(0.08px 0 0 #000)
+    drop-shadow(-0.08px 0 0 #000)
+    drop-shadow(0 0.08px 0 #000)
+    drop-shadow(0 -0.08px 0 #000);
 }
 
 @media (width >= 900px) {
