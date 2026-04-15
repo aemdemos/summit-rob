@@ -90,6 +90,8 @@ main .section.cards-container h2 {
   border-radius: 0;
   background-color: transparent;
   overflow: visible;
+  cursor: pointer;
+  transition: transform 0.3s ease;
 }
 
 .cards > ul > li:first-child {
@@ -108,6 +110,15 @@ main .section.cards-container h2 {
   aspect-ratio: var(--cards-image-aspect-ratio);
   object-fit: var(--cards-image-object-fit);
   border-radius: var(--cards-image-border-radius);
+}
+
+/* Hover: whole card zooms slightly + title gets underlined */
+.cards > ul > li:hover {
+  transform: scale(1.03);
+}
+
+.cards > ul > li:hover .cards-card-body h3 a {
+  text-decoration: underline;
 }
 
 /* ===================== CARD BODY ===================== */

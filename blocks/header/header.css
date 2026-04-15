@@ -210,7 +210,7 @@ header nav .nav-sections ul > li > ul > li {
     transform: rotate(135deg);
     width: 6px;
     height: 6px;
-    border: 2px solid currentcolor;
+    border: 1px solid currentcolor;
     border-radius: 0 1px 0 0;
     border-width: 2px 2px 0 0;
   }
@@ -484,4 +484,16 @@ header .breadcrumbs ol li[aria-current] {
     max-width: var(--header-nav-max-width-desktop);
     padding: var(--header-nav-padding-desktop);
   }
+}
+
+
+@media (width > 1024px) {
+  header nav .nav-sections ul > li {
+    font-size:16px;
+  }
+
+  header nav .nav-sections .nav-drop::after {
+    top: 10px;
+    
+  } 
 }
