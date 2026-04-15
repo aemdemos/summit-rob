@@ -1,6 +1,12 @@
 /* Hero block — Robert Half full-width hero */
 
 /* Remove default section constraints */
+
+main .section.hero-container > div {
+  max-width: 2272px;
+  margin: 0 auto;
+}
+
 .hero-container .hero-wrapper {
   max-width: unset;
   padding: 0;
@@ -80,7 +86,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-  margin-top: 8px;
+  margin-top: 18px;
 }
 
 .hero .hero-cta .button-container,
@@ -138,16 +144,33 @@
   }
 
   .hero .hero-content {
-    padding: 134px 48px 48px;
-    max-width: 55%;
+    padding: 120px 80px 80px;
+    max-width: 38%;
   }
 
   .hero .hero-content h1 {
-    font-size: 56px;
+    font-size: 68px;
     line-height: 1.2;
   }
 
   .hero .hero-content p {
-    font-size: 18px;
+    font-size: 19px;
+    font-weight: 400;
+  }
+
+  .hero .hero-cta a.button {
+    padding: 20px 60px;
+  }
+}
+
+@media (width > 1262px) {
+  .hero .hero-content {
+    max-width: 47%;
+  }
+}
+
+@media (width > 1400px) {
+  .hero .hero-content {
+    max-width: 730px;
   }
 }
