@@ -57,8 +57,9 @@
 /* Desktop: larger data points */
 @media (width >= 1024px) {
   .stats .stats-data-point {
-    font-size: var(--data-font-size-l, 40px);
+    font-size: 42px;
     margin-bottom: 35px;
+    font-family: var( --font-family-noto-medium);
   }
 
   .stats .stats-card-featured .stats-data-point {
@@ -100,6 +101,12 @@
 
   .stats .stats-card-featured {
     margin-bottom: -45px;
+  }
+}
+
+@media (width > 1400px) {
+  .stats .stats-card-featured{
+    max-width: 670px;
   }
 }
 
