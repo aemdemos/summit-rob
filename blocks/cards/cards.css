@@ -7,8 +7,19 @@
  * The inline inset is created by padding on the scroll strip itself.
  * Heading is centred inside the full-bleed container.
  */
-main .section.cards-container {
+ main > .section.cards-container > div {
+  margin-left:0;
+  margin-right:0;
+  max-width: 2272px;
+ }
+
+ main .section.cards-container {
   padding: 0;
+  padding-top: 64px;  
+  padding-bottom: 64px;
+  width:100vw;
+  margin:0 auto;
+  max-width: 2272px;
 }
 
 main .section.cards-container > .default-content-wrapper {
@@ -17,14 +28,19 @@ main .section.cards-container > .default-content-wrapper {
   padding: 0 var(--cards-inline-inset);
 }
 
-/* Heading — exact: 56 px / 300 / center / #27323a / line-height 1.2 / margin 0 */
+/* Heading — full viewport width from inset wrapper; box + text centred */
 main .section.cards-container h2 {
+  position: relative;
+  width: 100vw;
+  max-width: 100vw;
+  box-sizing: border-box;
+  margin: 0 calc(50% - 50vw) 80px;
   text-align: center;
   font-weight: 300;
   font-size: 56px;
   color: #27323a;
   line-height: 1.2;
-  margin: 0 0 48px;
+  font-family: "Noto Sans Display Light", "Noto Sans Light", OpenSansLight, "Open Sans Light", "Noto Sans", NotoSansJP-Light, NotoSansSC-Light, sans-serif;
 }
 
 /* ===================== HORIZONTAL SCROLLING STRIP ===================== */
@@ -70,11 +86,14 @@ main .section.cards-container h2 {
  */
 .cards > ul > li {
   flex: 0 0 var(--cards-card-width);
-  scroll-snap-align: start;
   border: none;
   border-radius: 0;
   background-color: transparent;
   overflow: visible;
+}
+
+.cards > ul > li:first-child {
+  margin-left: 36px;
 }
 
 /* ===================== CARD IMAGE ===================== */
@@ -95,21 +114,22 @@ main .section.cards-container h2 {
 
 /* Original: body sits directly below image, 16 px gap */
 .cards .cards-card-body {
-  margin: var(--cards-card-body-margin);
+  margin: var(--cards-card-body-padding);
 }
 
 /* Title — exact: 22 px / 600 / #0b6e76 / line-height 1.25 */
 .cards .cards-card-body h3 {
-  font-family: var(--body-font-family);
   font-weight: var(--cards-title-font-weight);
-  font-size: var(--cards-title-font-size);
+  font-size: 18px;
   line-height: var(--cards-title-line-height);
   margin: 0 0 8px;
+  font-family:"Noto Sans Regular", OpenSansRegular, "Open Sans Regular", "Noto Sans", NotoSansJP-Regular, NotoSansSC-Regular, sans-serif;
 }
 
 .cards .cards-card-body h3 a {
   color: var(--cards-title-color);
   text-decoration: none;
+  font-family: "Noto Sans SemiBold", OpenSansSemiBold, "Open Sans SemiBold", "Noto Sans", NotoSansJP-Medium, NotoSansSC-Medium, sans-serif;
 }
 
 .cards .cards-card-body h3 a:hover {
@@ -118,7 +138,7 @@ main .section.cards-container h2 {
 
 /* Description — exact: 16 px / 400 / #27323a / line-height 1.5 */
 .cards .cards-card-body p {
-  font-size: var(--cards-desc-font-size);
+  font-size: 15px;
   color: var(--cards-desc-color);
   margin: 0;
   line-height: var(--cards-desc-line-height);
@@ -134,10 +154,10 @@ main .section.cards-container h2 {
 .cards .cards-scrollbar {
   position: relative;
   height: var(--cards-scrollbar-height);
-  background-color: var(--cards-scrollbar-track-color);
   border-radius: 2px;
   margin: 32px var(--cards-inline-inset) 0;
   overflow: hidden;
+ 
 }
 
 .cards .cards-scrollbar-thumb {
@@ -226,4 +246,31 @@ main .section.cards-container h2 {
 /* Remove the old generic section inset — replaced by inline-inset token */
 main .section.cards-container > div:not(.bg-image) {
   padding: 0;
+}
+
+@media (width > 1200px) {
+  .cards .cards-card-body h3 {
+    font-size: 22px;
+  }
+
+  .cards .cards-card-body p {
+    font-size: 16px;
+  }
+}
+
+@media (width > 1648px) {
+  .cards > ul {
+    mask-image: none;
+    gap: 18px;
+    justify-content: center;
+  }
+
+  .cards > ul > li:first-child {
+    margin-left: 0;
+  }
+
+  .cards .cards-navigation-buttons {
+    display: none;
+  }
+
 }

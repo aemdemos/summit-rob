@@ -11,7 +11,7 @@
   --cards-card-border-color: transparent;
 
   /* Card body margin: image is flush, body below has 16px top */
-  --cards-card-body-margin: 16px 0 0;
+  --cards-card-body-padding: 24px 0 0;
 
   /* Image: 400×240 = 5∶3, border-radius 24px, cover */
   --cards-image-aspect-ratio: 5 / 3;
@@ -47,4 +47,41 @@
   --cards-nav-button-background: transparent;
   --cards-nav-button-hover-background: #f5f5f5;
   --cards-nav-transition-duration: 0.2s;
+}
+
+
+@media (width >1128px) {
+  :root {
+    --cards-inline-inset: 14.54%;
+  }
+}
+
+@media (width >1232px) {
+  :root {
+    --cards-inline-inset: 17.45%;
+  }
+}
+
+@media (width >1336px) {
+  :root {
+    --cards-inline-inset: 19.99%;
+  }
+}
+
+@media (width >1440px) {
+  :root {
+    --cards-inline-inset: 8.33%;
+  }
+}
+
+@media (width >1540px) {
+  :root {
+    --cards-inline-inset: 11.22%;
+  }
+}
+
+@media (width >1648px) {
+  :root {
+    --cards-inline-inset: 0;
+  }
 }
