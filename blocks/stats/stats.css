@@ -83,7 +83,7 @@
   }
 
   .stats .stats-grid {
-    gap: 40px 80px;
+    gap: 40px;
   }
 
   .stats .stats-description {
@@ -95,9 +95,11 @@
   .stats .stats-card:not(.stats-card-featured) {
     padding-left:32px;
     border-left: 4px solid #eeebeb;
+    max-width: 490px;
   }
 
   .stats .stats-card-featured {
     margin-bottom: -45px;
   }
 }
+
