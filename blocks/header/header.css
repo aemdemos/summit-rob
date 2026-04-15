@@ -3,11 +3,32 @@
 /* header and nav layout */
 header .nav-wrapper {
   background-color: var(--background-color);
-  width: 100%;
-  z-index: 2;
+  z-index: 3;
   position: fixed;
   box-shadow: 0 2px 8px rgb(0 0 0 / 8%);
+  transition:
+    background-color 0.25s ease,
+    box-shadow 0.25s ease;
 }
+
+/*
+ * Hero under fixed header: transparent bar at scroll top (no .nav-wrapper-scrolled).
+ * Uses :has() so it works even if scroll script runs late; JS toggles -scrolled after scroll.
+ */
+body:has(main .hero, main .section.hero-container, main [data-block-name='hero']) header .nav-wrapper:not(.nav-wrapper-scrolled) {
+  background-color: transparent;
+  box-shadow: none;
+}
+
+body:has(main .hero, main .section.hero-container, main [data-block-name='hero']) header .header {
+  background-color: transparent;
+}
+
+body:has(main .hero, main .section.hero-container, main [data-block-name='hero']) header .nav-wrapper:not(.nav-wrapper-scrolled) nav .nav-hamburger button {
+  background-color: transparent;
+}
+
+/* Light top-bar colors live at end of file so they override .nav-tools / active li rules below. */
 
 header nav {
   box-sizing: border-box;
@@ -36,6 +57,7 @@ header nav[aria-expanded='true'] {
 @media (width >= 900px) {
   header nav {
     display: flex;
+    align-items: center;
     justify-content: space-between;
     gap: 0 var(--header-nav-gap-desktop);
     max-width: var(--header-nav-max-width-desktop);
@@ -169,7 +191,7 @@ header nav[aria-expanded='true'] .nav-sections {
 header nav .nav-sections ul {
   list-style: none;
   padding-left: 0;
-  font-size: var(--body-font-size-s);
+  font-size: 16px;
 }
 
 header nav .nav-sections ul > li {
@@ -223,6 +245,7 @@ header nav .nav-sections ul > li > ul > li {
 
   header nav .nav-sections ul {
     display: flex;
+    align-items: center;
     gap: var(--header-nav-gap);
     margin: 0;
   }
@@ -450,16 +473,42 @@ header nav .nav-tools {
   gap: 16px;
 }
 
+/*
+ * Nav fragment often wraps search + “Sign in” in one <p> with no whitespace between </a><a>,
+ * so inline layout stacks them flush. Flex + gap on that row fixes overlap.
+ */
+header nav .nav-tools > p {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+/* One row with mega labels: same flex cross-axis + line box for text + icon-only search */
+header nav .nav-tools > p > a {
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
+}
+
+header nav .nav-tools .icon {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
 header nav .nav-tools .button {
   margin: 0;
   border: none;
   padding: 0.5em;
   background: none;
-  line-height: 0;
+
+  /* Must not use line-height: 0 — beats > p > a in cascade (two classes) and breaks icon/text alignment */
+  line-height: 1;
 }
 
 header nav .nav-tools a:not(.button) {
-  font-size: var(--body-font-size-s);
+  font-size: 16px;
   font-weight: 500;
   color: var(--color-text-primary);
   text-decoration: none;
@@ -468,6 +517,47 @@ header nav .nav-tools a:not(.button) {
 
 header nav .nav-tools a:not(.button):hover {
   color: var(--color-brand-teal, #0b6e76);
+}
+
+@media (width >= 900px) {
+  /*
+   * Mega top-level labels and tools row share one 24px line box (matches .icon 24px) so
+   * “Discover Insights”, search, and “Sign in” align on one row.
+   */
+  header nav .nav-sections .default-content-wrapper > ul > li > p {
+    font-size: var(--body-font-size-m, 16px);
+    font-weight: 500;
+    line-height: 24px;
+  }
+
+  header nav .nav-tools {
+    padding-left: 20px;
+    align-items: center;
+  }
+
+  header nav .nav-tools > p > a {
+    font-size: var(--body-font-size-m, 16px);
+    font-weight: 500;
+    line-height: 24px;
+    min-height: 24px;
+  }
+
+  /* Icon-only search: fixed box so SVG handle does not collide with “Sign in” */
+  header nav .nav-tools > p > a:first-of-type {
+    box-sizing: border-box;
+    justify-content: center;
+    width: 24px;
+    min-width: 24px;
+    height: 24px;
+    padding: 0;
+  }
+
+  header nav .nav-tools .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+  }
 }
 
 /* breadcrumbs */
@@ -518,11 +608,106 @@ header .breadcrumbs ol li[aria-current] {
 
 @media (width > 1024px) {
   header nav .nav-sections ul > li {
-    font-size:16px;
+    font-size: 16px;
   }
 
   header nav .nav-sections .nav-drop::after {
     top: 10px;
-    
-  } 
+    right: 2px;
+  }
+}
+
+/*
+ * Hero: light top bar over transparent nav — must load AFTER base nav colors (.nav-tools,
+ * active [aria-expanded], etc.) or those rules win the cascade.
+ */
+body:has(main .hero, main .section.hero-container, main [data-block-name='hero']) header .nav-wrapper:not(.nav-wrapper-scrolled) nav {
+  color: #fff;
+  text-shadow: 0 1px 2px rgb(0 0 0 / 40%);
+  transition:
+    color 0.25s ease,
+    text-shadow 0.25s ease;
+}
+
+body:has(main .hero, main .section.hero-container, main [data-block-name='hero']) header .nav-wrapper:not(.nav-wrapper-scrolled) nav .nav-brand,
+body:has(main .hero, main .section.hero-container, main [data-block-name='hero']) header .nav-wrapper:not(.nav-wrapper-scrolled) nav .nav-brand *:not(img) {
+  color: #fff !important;
+}
+
+/*
+ * Logo on dark hero (single PNG cannot become white wordmark + white tile + black “rh” via CSS).
+ * - Optional: `data-logo-hero` on `.nav-brand img` or `a`, or page meta `logo-hero` — JS swaps `src` when bar is transparent (see header.js).
+ * - `img[data-hero-logo-active]`: swapped on-dark asset — no filter.
+ * - One default image, no swap: light drop-shadow only.
+ * - Two images (mark + wordmark): first natural; invert second for light wordmark bitmap.
+ */
+body:has(main .hero, main .section.hero-container, main [data-block-name='hero']) header .nav-wrapper:not(.nav-wrapper-scrolled) nav .nav-brand img[data-hero-logo-active] {
+  filter: none;
+}
+
+body:has(main .hero, main .section.hero-container, main [data-block-name='hero']) header .nav-wrapper:not(.nav-wrapper-scrolled) nav .nav-brand img:only-of-type:not([data-hero-logo-active]) {
+  filter: drop-shadow(0 0 10px rgb(0 0 0 / 45%));
+}
+
+body:has(main .hero, main .section.hero-container, main [data-block-name='hero']) header .nav-wrapper:not(.nav-wrapper-scrolled) nav .nav-brand img:first-of-type:not(:only-of-type) {
+  filter: none;
+}
+
+body:has(main .hero, main .section.hero-container, main [data-block-name='hero']) header .nav-wrapper:not(.nav-wrapper-scrolled) nav .nav-brand img:last-of-type:not(:only-of-type) {
+  filter: brightness(0) invert(1);
+}
+
+/* Search / tools: span.icon > img SVG → white on dark hero */
+body:has(main .hero, main .section.hero-container, main [data-block-name='hero']) header .nav-wrapper:not(.nav-wrapper-scrolled) nav .nav-tools .icon img,
+body:has(main .hero, main .section.hero-container, main [data-block-name='hero']) header .nav-wrapper:not(.nav-wrapper-scrolled) nav .nav-tools .button .icon img {
+  filter: brightness(0) invert(1);
+}
+
+body:has(main .hero, main .section.hero-container, main [data-block-name='hero']) header .nav-wrapper:not(.nav-wrapper-scrolled) nav .nav-brand a:hover {
+  color: rgb(255 255 255 / 88%) !important;
+}
+
+body:has(main .hero, main .section.hero-container, main [data-block-name='hero']) header .nav-wrapper:not(.nav-wrapper-scrolled) nav .icon {
+  color: #fff;
+}
+
+body:has(main .hero, main .section.hero-container, main [data-block-name='hero']) header .nav-wrapper:not(.nav-wrapper-scrolled) nav .nav-tools a:not(.button) {
+  color: #fff !important;
+}
+
+body:has(main .hero, main .section.hero-container, main [data-block-name='hero']) header .nav-wrapper:not(.nav-wrapper-scrolled) nav .nav-tools a:not(.button):hover {
+  color: rgb(255 255 255 / 88%) !important;
+}
+
+body:has(main .hero, main .section.hero-container, main [data-block-name='hero']) header .nav-wrapper:not(.nav-wrapper-scrolled) nav .nav-sections .default-content-wrapper > ul > li[aria-expanded='true'] {
+  color: #fff !important;
+}
+
+body:has(main .hero, main .section.hero-container, main [data-block-name='hero']) header .nav-wrapper:not(.nav-wrapper-scrolled) nav .nav-sections .default-content-wrapper > ul > li:hover {
+  color: rgb(255 255 255 / 88%);
+}
+
+/* Top-row labels only (direct children before the mega <ul>); avoids painting mega panel links */
+body:has(main .hero, main .section.hero-container, main [data-block-name='hero']) header .nav-wrapper:not(.nav-wrapper-scrolled) nav .nav-sections .default-content-wrapper > ul > li > :not(ul) {
+  color: #fff !important;
+}
+
+body:has(main .hero, main .section.hero-container, main [data-block-name='hero']) header .nav-wrapper:not(.nav-wrapper-scrolled) nav .nav-sections .default-content-wrapper > ul > li > :not(ul) a {
+  color: #fff !important;
+}
+
+body:has(main .hero, main .section.hero-container, main [data-block-name='hero']) header .nav-wrapper.nav-wrapper-scrolled nav .nav-brand img {
+  filter: none;
+}
+
+body:has(main .hero, main .section.hero-container, main [data-block-name='hero']) header .nav-wrapper.nav-wrapper-scrolled nav .nav-tools .icon img,
+body:has(main .hero, main .section.hero-container, main [data-block-name='hero']) header .nav-wrapper.nav-wrapper-scrolled nav .nav-tools .button .icon img {
+  filter: none;
+}
+
+@media (width >= 1024px) {
+  header nav[aria-expanded='true'] {
+    padding-left:80px;
+    padding-right:80px;
+  }
 }
