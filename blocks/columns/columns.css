@@ -21,20 +21,68 @@
   display: block;
 }
 
-/* Icon + heading groups: icon sits left of heading+text */
-.columns > div > div:not(.columns-img-col) > p:has(.icon) {
-  margin: 0 0 -4px;
+/*
+ * Icon + heading layout (pixel-perfect from original):
+ *   - Icon (40px, muted #5a7a8a stroke) and heading (22px/600/#27323a) sit on the SAME LINE
+ *   - 16px gap between icon and heading
+ *   - Description paragraph below, LEFT-ALIGNED with the heading (indented 56px past the icon)
+ *   - 32px vertical gap between each icon-heading-description group
+ *
+ *   DOM:  <p><span class="icon"><img></span></p>   ← icon
+ *         <h4>Heading text</h4>                    ← heading
+ *         <p>Description text</p>                  ← description
+ */
+.columns > div > div:not(.columns-img-col) {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  gap: 0 16px;
+  align-items: start;
 }
 
+/* Icon paragraph: grid column 1 */
+.columns > div > div:not(.columns-img-col) > p:has(.icon) {
+  grid-column: 1;
+  margin: 0;
+  padding-top: 4px;
+  line-height: 0;
+}
+
+/* Heading: grid column 2, same row as icon */
+.columns > div > div:not(.columns-img-col) > h4 {
+  grid-column: 2;
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.25;
+  color: #27323a;
+  margin: 0 0 8px;
+  align-self: center;
+}
+
+/* Description: grid column 2, below heading (skips column 1) */
+.columns > div > div:not(.columns-img-col) > p:not(:has(.icon)) {
+  grid-column: 2;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #27323a;
+  margin: 0 0 32px;
+}
+
+/* Last description: no bottom margin */
+.columns > div > div:not(.columns-img-col) > p:not(:has(.icon)):last-child {
+  margin-bottom: 0;
+}
+
+/* Icon: 40px muted stroke */
 .columns > div > div:not(.columns-img-col) .icon {
   display: inline-block;
-  width: 48px;
-  height: 48px;
+  width: 40px;
+  height: 40px;
 }
 
 .columns > div > div:not(.columns-img-col) .icon img {
-  width: 48px;
-  height: 48px;
+  width: 40px;
+  height: 40px;
 }
 
 @media (width >= 900px) {
