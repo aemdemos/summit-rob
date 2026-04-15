@@ -21,6 +21,22 @@
   display: block;
 }
 
+/* Icon + heading groups: icon sits left of heading+text */
+.columns > div > div:not(.columns-img-col) > p:has(.icon) {
+  margin: 0 0 -4px;
+}
+
+.columns > div > div:not(.columns-img-col) .icon {
+  display: inline-block;
+  width: 48px;
+  height: 48px;
+}
+
+.columns > div > div:not(.columns-img-col) .icon img {
+  width: 48px;
+  height: 48px;
+}
+
 @media (width >= 900px) {
   .columns > div {
     align-items: center;
