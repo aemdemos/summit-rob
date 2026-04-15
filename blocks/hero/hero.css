@@ -2,10 +2,6 @@
 
 /* Remove default section constraints */
 
-main .section.hero-container > div {
-  max-width: 2272px;
-  margin: 0 auto;
-}
 
 .hero-container .hero-wrapper {
   max-width: unset;
@@ -172,5 +168,93 @@ main .section.hero-container > div {
 @media (width > 1400px) {
   .hero .hero-content {
     max-width: 730px;
+  }
+}
+
+
+@media (width > 1440px) {
+  main .section.hero-container {
+    padding: 0;
+  }
+
+  .hero .hero-content {
+    margin: 0 auto;
+    padding-left: 0;
+  }
+}
+
+/*
+ * padding-right (% of .hero width ≈ viewport): piecewise linear between measured knots.
+ * Segment: calc(p0% + (p1% - p0%) * (100vw - v0) / (v1 - v0))
+ */
+@media (width > 1440px) and (width <= 1500px) {
+  .hero .hero-content {
+    padding-right: calc(27.99% + (30% - 27.99%) * (100vw - 1440px) / 60px);
+  }
+}
+
+@media (width > 1500px) and (width <= 1600px) {
+  .hero .hero-content {
+    padding-right: calc(30% + (28% - 30%) * (100vw - 1500px) / 100px);
+  }
+}
+
+@media (width > 1600px) and (width <= 1700px) {
+  .hero .hero-content {
+    padding-right: calc(28% + (27% - 28%) * (100vw - 1600px) / 100px);
+  }
+}
+
+@media (width > 1700px) and (width <= 1800px) {
+  .hero .hero-content {
+    padding-right: calc(27% + (26% - 27%) * (100vw - 1700px) / 100px);
+  }
+}
+
+@media (width > 1800px) and (width <= 1900px) {
+  .hero .hero-content {
+    padding-right: calc(26% + (25% - 26%) * (100vw - 1800px) / 100px);
+  }
+}
+
+@media (width > 1900px) and (width <= 2000px) {
+  .hero .hero-content {
+    padding-right: calc(25% + (23% - 25%) * (100vw - 1900px) / 100px);
+  }
+}
+
+@media (width > 2000px) and (width <= 2500px) {
+  .hero .hero-content {
+    padding-right: calc(23% + (19% - 23%) * (100vw - 2000px) / 500px);
+  }
+}
+
+@media (width > 2500px) and (width <= 3000px) {
+  .hero .hero-content {
+    padding-right: calc(19% + (16% - 19%) * (100vw - 2500px) / 500px);
+  }
+}
+
+@media (width > 3000px) and (width <= 3500px) {
+  .hero .hero-content {
+    padding-right: calc(16% + (14% - 16%) * (100vw - 3000px) / 500px);
+  }
+}
+
+@media (width > 3500px) and (width <= 4000px) {
+  .hero .hero-content {
+    padding-right: calc(14% + (12% - 14%) * (100vw - 3500px) / 500px);
+  }
+}
+
+@media (width > 4000px) and (width <= 4500px) {
+  .hero .hero-content {
+    padding-right: calc(12% + (10% - 12%) * (100vw - 4000px) / 500px);
+  }
+}
+
+@media (width > 4500px) {
+  .hero .hero-content {
+    padding-right: 10%;
   }
 }
