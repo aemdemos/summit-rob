@@ -1,36 +1,60 @@
 @import url('./cards-tokens.css');
 
 /* ===================== SECTION WRAPPER ===================== */
+
+/*
+ * Original: section is full-bleed (padding 0, max-width none).
+ * The inline inset is created by padding on the scroll strip itself.
+ * Heading is centred inside the full-bleed container.
+ */
 main .section.cards-container {
-  padding: var(--cards-section-padding-mobile);
+  padding: 0;
 }
 
 main .section.cards-container > .default-content-wrapper {
-  max-width: var(--max-width-site, 1200px);
+  max-width: 1320px;
   margin: 0 auto;
+  padding: 0 var(--cards-inline-inset);
 }
 
-/* Section heading: "Hiring trends and insights" */
+/* Heading — exact: 56 px / 300 / center / #27323a / line-height 1.2 / margin 0 */
 main .section.cards-container h2 {
   text-align: center;
   font-weight: 300;
-  font-size: clamp(32px, 5vw, 56px);
-  color: var(--text-color, #27323a);
+  font-size: 56px;
+  color: #27323a;
   line-height: 1.2;
   margin: 0 0 48px;
 }
 
 /* ===================== HORIZONTAL SCROLLING STRIP ===================== */
+
+/*
+ * Original uses a full-bleed scroll strip.  Cards start at ~18.36 %
+ * from the left edge (235 px at 1280 px).  We replicate this with
+ * padding-left equal to --cards-inline-inset (≈ 10.99 % of container).
+ * The mask fades *both* edges exactly as the original.
+ * Original mask (from screenshot analysis):
+ *   left  — transparent → black over ~140 px  (≈ 10.93 % of 1280)
+ *   right — black → transparent over ~140 px  (≈ 10.93 % of 1280)
+ */
 .cards > ul {
   list-style: none;
   margin: 0;
-  padding: 16px 4px 24px;
+  padding: 16px 0 24px var(--cards-inline-inset);
   display: flex;
   gap: var(--cards-card-gap);
   overflow: auto hidden;
   scroll-behavior: smooth;
   scroll-snap-type: x mandatory;
-  mask-image: linear-gradient(to right, transparent 0%, black 3%, black 85%, transparent 100%);
+  mask-image:
+    linear-gradient(
+      to right,
+      transparent 0%,
+      black 10.93%,
+      black 89.07%,
+      transparent 100%
+    );
   scrollbar-width: none;
 }
 
@@ -39,10 +63,13 @@ main .section.cards-container h2 {
 }
 
 /* ===================== CARD ITEM ===================== */
+
+/*
+ * Original inner card: 400 px wide, no border / shadow / bg.
+ * Host has padding 0 12px but we use gap instead so set 0 here.
+ */
 .cards > ul > li {
-  flex: 0 0 auto;
-  width: var(--cards-card-width);
-  min-width: 280px;
+  flex: 0 0 var(--cards-card-width);
   scroll-snap-align: start;
   border: none;
   border-radius: 0;
@@ -51,6 +78,8 @@ main .section.cards-container h2 {
 }
 
 /* ===================== CARD IMAGE ===================== */
+
+/* Original: 400 × 240, border-radius 24 px, object-fit cover */
 .cards .cards-card-image {
   line-height: 0;
 }
@@ -63,10 +92,13 @@ main .section.cards-container h2 {
 }
 
 /* ===================== CARD BODY ===================== */
+
+/* Original: body sits directly below image, 16 px gap */
 .cards .cards-card-body {
   margin: var(--cards-card-body-margin);
 }
 
+/* Title — exact: 22 px / 600 / #0b6e76 / line-height 1.25 */
 .cards .cards-card-body h3 {
   font-family: var(--body-font-family);
   font-weight: var(--cards-title-font-weight);
@@ -84,6 +116,7 @@ main .section.cards-container h2 {
   text-decoration: underline;
 }
 
+/* Description — exact: 16 px / 400 / #27323a / line-height 1.5 */
 .cards .cards-card-body p {
   font-size: var(--cards-desc-font-size);
   color: var(--cards-desc-color);
@@ -92,12 +125,18 @@ main .section.cards-container h2 {
 }
 
 /* ===================== SCROLL PROGRESS BAR ===================== */
+
+/*
+ * Original: thin teal progress bar that fills proportionally.
+ * Positioned between the card strip and the nav buttons.
+ * Inset matches the card strip inline padding.
+ */
 .cards .cards-scrollbar {
   position: relative;
-  height: 4px;
-  background-color: #e0e0e0;
+  height: var(--cards-scrollbar-height);
+  background-color: var(--cards-scrollbar-track-color);
   border-radius: 2px;
-  margin-top: 32px;
+  margin: 32px var(--cards-inline-inset) 0;
   overflow: hidden;
 }
 
@@ -105,18 +144,23 @@ main .section.cards-container h2 {
   position: absolute;
   top: 0;
   height: 100%;
-  background-color: var(--color-brand-teal, #0b6e76);
+  background-color: var(--cards-scrollbar-thumb-color);
   border-radius: 2px;
   transition: left 0.15s ease-out;
 }
 
 /* ===================== NAV BUTTONS ===================== */
+
+/*
+ * Original: 48 px circles, 2 px solid #033941 border,
+ * transparent bg, right-aligned below the scrollbar.
+ */
 .cards .cards-navigation-buttons {
   display: flex;
   align-items: center;
   justify-content: flex-end;
   gap: 12px;
-  padding: 24px 0 0;
+  padding: 24px var(--cards-inline-inset) 0;
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
@@ -142,11 +186,11 @@ main .section.cards-container h2 {
   border-color: #999;
 }
 
-/* Chevron arrows */
+/* Chevron arrows (exact same pattern as carousel nav) */
 .cards .cards-navigation-buttons button::after {
   display: block;
   content: '';
-  border: 2px solid var(--text-color, #27323a);
+  border: 2px solid #27323a;
   border-bottom: 0;
   border-left: 0;
   height: 10px;
@@ -164,15 +208,14 @@ main .section.cards-container h2 {
 
 /* ===================== RESPONSIVE ===================== */
 
-@media (width >= 600px) {
-  main .section.cards-container {
-    padding: var(--cards-section-padding);
-  }
-}
-
 @media (width < 600px) {
+  main .section.cards-container h2 {
+    font-size: 32px;
+    margin-bottom: 32px;
+  }
+
   .cards > ul > li {
-    width: 80vw;
+    flex: 0 0 80vw;
   }
 
   .cards .cards-navigation-buttons {
@@ -180,7 +223,7 @@ main .section.cards-container h2 {
   }
 }
 
-/* Section horizontal inset for cards (matches carousel strip alignment) */
+/* Remove the old generic section inset — replaced by inline-inset token */
 main .section.cards-container > div:not(.bg-image) {
   padding: 0;
 }
