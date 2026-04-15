@@ -38,8 +38,34 @@ export default function decorate(block) {
     nextBtn.className = 'cards-next';
     nextBtn.setAttribute('aria-label', 'Next');
 
+    // Scrollbar progress indicator
+    const scrollbar = document.createElement('div');
+    scrollbar.className = 'cards-scrollbar';
+    const scrollThumb = document.createElement('div');
+    scrollThumb.className = 'cards-scrollbar-thumb';
+    scrollbar.append(scrollThumb);
+
+    const updateScrollbar = () => {
+      const { scrollLeft, scrollWidth, clientWidth } = ul;
+      const maxScroll = scrollWidth - clientWidth;
+      if (maxScroll <= 0) {
+        scrollbar.hidden = true;
+        return;
+      }
+      scrollbar.hidden = false;
+      const ratio = clientWidth / scrollWidth;
+      const thumbWidth = Math.max(ratio * 100, 10);
+      const thumbLeft = (scrollLeft / maxScroll) * (100 - thumbWidth);
+      scrollThumb.style.width = `${thumbWidth}%`;
+      scrollThumb.style.left = `${thumbLeft}%`;
+    };
+
+    ul.addEventListener('scroll', updateScrollbar, { passive: true });
+    // Initial update after layout
+    requestAnimationFrame(updateScrollbar);
+
     nav.append(prevBtn, nextBtn);
-    block.append(nav);
+    block.append(scrollbar, nav);
 
     const scrollByCard = (direction) => {
       const cardWidth = items[0].getBoundingClientRect().width;

@@ -91,13 +91,32 @@ main .section.cards-container h2 {
   line-height: var(--cards-desc-line-height);
 }
 
+/* ===================== SCROLL PROGRESS BAR ===================== */
+.cards .cards-scrollbar {
+  position: relative;
+  height: 4px;
+  background-color: #e0e0e0;
+  border-radius: 2px;
+  margin-top: 32px;
+  overflow: hidden;
+}
+
+.cards .cards-scrollbar-thumb {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  background-color: var(--color-brand-teal, #0b6e76);
+  border-radius: 2px;
+  transition: left 0.15s ease-out;
+}
+
 /* ===================== NAV BUTTONS ===================== */
 .cards .cards-navigation-buttons {
   display: flex;
   align-items: center;
   justify-content: flex-end;
   gap: 12px;
-  padding: 32px 0 0;
+  padding: 24px 0 0;
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
