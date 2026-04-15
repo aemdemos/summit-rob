@@ -21,4 +21,33 @@ export default function decorate(block) {
   });
   block.textContent = '';
   block.append(ul);
+
+  // Add prev/next navigation buttons for horizontal scroll
+  const items = ul.querySelectorAll('li');
+  if (items.length > 1) {
+    const nav = document.createElement('div');
+    nav.className = 'cards-navigation-buttons';
+
+    const prevBtn = document.createElement('button');
+    prevBtn.type = 'button';
+    prevBtn.className = 'cards-prev';
+    prevBtn.setAttribute('aria-label', 'Previous');
+
+    const nextBtn = document.createElement('button');
+    nextBtn.type = 'button';
+    nextBtn.className = 'cards-next';
+    nextBtn.setAttribute('aria-label', 'Next');
+
+    nav.append(prevBtn, nextBtn);
+    block.append(nav);
+
+    const scrollByCard = (direction) => {
+      const cardWidth = items[0].getBoundingClientRect().width;
+      const gap = parseInt(getComputedStyle(ul).gap, 10) || 0;
+      ul.scrollBy({ left: direction * (cardWidth + gap), behavior: 'smooth' });
+    };
+
+    prevBtn.addEventListener('click', () => scrollByCard(-1));
+    nextBtn.addEventListener('click', () => scrollByCard(1));
+  }
 }

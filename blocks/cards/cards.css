@@ -1,49 +1,56 @@
 @import url('./cards-tokens.css');
 
+/* ===================== SECTION WRAPPER ===================== */
+main .section.cards-container {
+  padding: var(--cards-section-padding-mobile);
+}
+
+main .section.cards-container > .default-content-wrapper {
+  max-width: var(--max-width-site, 1200px);
+  margin: 0 auto;
+}
+
+/* Section heading: "Hiring trends and insights" */
+main .section.cards-container h2 {
+  text-align: center;
+  font-weight: 300;
+  font-size: clamp(32px, 5vw, 56px);
+  color: var(--text-color, #27323a);
+  line-height: 1.2;
+  margin: 0 0 48px;
+}
+
+/* ===================== HORIZONTAL SCROLLING STRIP ===================== */
 .cards > ul {
   list-style: none;
   margin: 0;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(var(--cards-grid-min-width), 1fr));
-  gap: var(--cards-grid-gap);
+  padding: 16px 4px 24px;
+  display: flex;
+  gap: var(--cards-card-gap);
+  overflow: auto hidden;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  mask-image: linear-gradient(to right, transparent 0%, black 3%, black 85%, transparent 100%);
+  scrollbar-width: none;
 }
 
+.cards > ul::-webkit-scrollbar {
+  display: none;
+}
+
+/* ===================== CARD ITEM ===================== */
 .cards > ul > li {
-  border: var(--cards-card-border-width) solid var(--cards-card-border-color);
-  border-radius: var(--border-radius-m, 8px);
-  background-color: var(--background-color);
-  overflow: hidden;
+  flex: 0 0 auto;
+  width: var(--cards-card-width);
+  min-width: 280px;
+  scroll-snap-align: start;
+  border: none;
+  border-radius: 0;
+  background-color: transparent;
+  overflow: visible;
 }
 
-.cards .cards-card-body {
-  margin: var(--cards-card-body-margin);
-}
-
-.cards .cards-card-body h3 {
-  font-family: var(--body-font-family);
-  font-weight: 600;
-  font-size: 18px;
-  line-height: 1.25;
-  margin: 0 0 8px;
-}
-
-.cards .cards-card-body h3 a {
-  color: var(--color-brand-teal, #0b6e76);
-  text-decoration: none;
-}
-
-.cards .cards-card-body h3 a:hover {
-  text-decoration: underline;
-}
-
-.cards .cards-card-body p {
-  font-size: var(--body-font-size-s, 14px);
-  color: var(--color-text-secondary, #4e5257);
-  margin: 0;
-  line-height: 1.5;
-}
-
+/* ===================== CARD IMAGE ===================== */
 .cards .cards-card-image {
   line-height: 0;
 }
@@ -52,9 +59,109 @@
   width: 100%;
   aspect-ratio: var(--cards-image-aspect-ratio);
   object-fit: var(--cards-image-object-fit);
+  border-radius: var(--cards-image-border-radius);
+}
+
+/* ===================== CARD BODY ===================== */
+.cards .cards-card-body {
+  margin: var(--cards-card-body-margin);
+}
+
+.cards .cards-card-body h3 {
+  font-family: var(--body-font-family);
+  font-weight: var(--cards-title-font-weight);
+  font-size: var(--cards-title-font-size);
+  line-height: var(--cards-title-line-height);
+  margin: 0 0 8px;
+}
+
+.cards .cards-card-body h3 a {
+  color: var(--cards-title-color);
+  text-decoration: none;
+}
+
+.cards .cards-card-body h3 a:hover {
+  text-decoration: underline;
+}
+
+.cards .cards-card-body p {
+  font-size: var(--cards-desc-font-size);
+  color: var(--cards-desc-color);
+  margin: 0;
+  line-height: var(--cards-desc-line-height);
+}
+
+/* ===================== NAV BUTTONS ===================== */
+.cards .cards-navigation-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 32px 0 0;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+.cards .cards-navigation-buttons button {
+  position: relative;
+  box-sizing: border-box;
+  width: var(--cards-nav-button-size);
+  height: var(--cards-nav-button-size);
+  margin: 0;
+  border-radius: 50%;
+  border: var(--cards-nav-button-border);
+  padding: 0;
+  background-color: var(--cards-nav-button-background);
+  cursor: pointer;
+  transition:
+    background-color var(--cards-nav-transition-duration),
+    border-color var(--cards-nav-transition-duration);
+}
+
+.cards .cards-navigation-buttons button:hover,
+.cards .cards-navigation-buttons button:focus-visible {
+  background-color: var(--cards-nav-button-hover-background);
+  border-color: #999;
+}
+
+/* Chevron arrows */
+.cards .cards-navigation-buttons button::after {
+  display: block;
+  content: '';
+  border: 2px solid var(--text-color, #27323a);
+  border-bottom: 0;
+  border-left: 0;
+  height: 10px;
+  width: 10px;
+  position: absolute;
+  top: 50%;
+  left: calc(50% + 2px);
+  transform: translate(-50%, -50%) rotate(-135deg);
+}
+
+.cards .cards-navigation-buttons button.cards-next::after {
+  transform: translate(-50%, -50%) rotate(45deg);
+  left: calc(50% - 2px);
+}
+
+/* ===================== RESPONSIVE ===================== */
+
+@media (width >= 600px) {
+  main .section.cards-container {
+    padding: var(--cards-section-padding);
+  }
+}
+
+@media (width < 600px) {
+  .cards > ul > li {
+    width: 80vw;
+  }
+
+  .cards .cards-navigation-buttons {
+    justify-content: center;
+  }
 }
 
 /* Section horizontal inset for cards (matches carousel strip alignment) */
 main .section.cards-container > div:not(.bg-image) {
-  padding: 0 10.99%;
+  padding: 0;
 }

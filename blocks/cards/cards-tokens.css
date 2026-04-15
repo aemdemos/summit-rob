@@ -1,10 +1,25 @@
-/* cards design tokens */
+/* cards design tokens — Robert Half style */
 :root {
-  --cards-grid-min-width: 257px;
-  --cards-grid-gap: 16px;
-  --cards-card-border-width: 1px;
-  --cards-card-border-color: #dadada;
-  --cards-card-body-margin: 16px;
-  --cards-image-aspect-ratio: 4 / 3;
+  --cards-card-width: 400px;
+  --cards-card-gap: 48px;
+  --cards-card-border-width: 0;
+  --cards-card-border-color: transparent;
+  --cards-card-body-margin: 16px 0 0;
+  --cards-image-aspect-ratio: 5 / 3;
   --cards-image-object-fit: cover;
+  --cards-image-border-radius: 24px;
+  --cards-title-font-size: 22px;
+  --cards-title-font-weight: 600;
+  --cards-title-color: var(--color-brand-teal, #0b6e76);
+  --cards-title-line-height: 1.25;
+  --cards-desc-font-size: 16px;
+  --cards-desc-color: var(--text-color, #27323a);
+  --cards-desc-line-height: 1.5;
+  --cards-section-padding: 64px 80px 80px;
+  --cards-section-padding-mobile: 48px 24px 56px;
+  --cards-nav-button-size: 48px;
+  --cards-nav-button-border: 2px solid #ccc;
+  --cards-nav-button-background: transparent;
+  --cards-nav-button-hover-background: #f5f5f5;
+  --cards-nav-transition-duration: 0.2s;
 }
