@@ -91,6 +91,7 @@ main .section.cards-container h2 {
   background-color: transparent;
   overflow: visible;
   cursor: pointer;
+  transition: transform 0.3s ease;
 }
 
 .cards > ul > li:first-child {
@@ -102,8 +103,6 @@ main .section.cards-container h2 {
 /* Original: 400 × 240, border-radius 24 px, object-fit cover */
 .cards .cards-card-image {
   line-height: 0;
-  overflow: hidden;
-  border-radius: var(--cards-image-border-radius);
 }
 
 .cards > ul > li img {
@@ -111,12 +110,11 @@ main .section.cards-container h2 {
   aspect-ratio: var(--cards-image-aspect-ratio);
   object-fit: var(--cards-image-object-fit);
   border-radius: var(--cards-image-border-radius);
-  transition: transform 0.3s ease;
 }
 
-/* Hover: slight zoom on image + underline on title */
-.cards > ul > li:hover img {
-  transform: scale(1.05);
+/* Hover: whole card zooms slightly + title gets underlined */
+.cards > ul > li:hover {
+  transform: scale(1.03);
 }
 
 .cards > ul > li:hover .cards-card-body h3 a {
