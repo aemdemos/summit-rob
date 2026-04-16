@@ -72,7 +72,7 @@ header nav[aria-expanded='true'] {
 
 header nav p {
   margin: 0;
-  line-height: 1;
+  line-height: 1.5;
 }
 
 header nav a {
@@ -260,18 +260,23 @@ header nav .nav-sections ul > li > ul > li {
     position: relative;
   }
 
-  /* Mega-menu dropdown panel */
+  /*
+   * Mega-menu dropdown panel: full viewport width; do not set max-width on this fixed ul or it
+   * stays left-aligned. Use fluid horizontal padding so the grid tracks a ~1280px content column
+   * centered like the main nav (no max-width on the panel itself).
+   */
   header nav .nav-sections .default-content-wrapper > ul > li[aria-expanded='true'] > ul {
     display: grid;
     grid-template-columns: 320px 1fr;
     grid-template-rows: repeat(8, min-content);
     position: fixed;
-    left: 0;
-    right: 0;
+    inset-inline: 0;
     top: var(--nav-height);
-    width: 90vw;
+    width: 100%;
+    box-sizing: border-box;
     max-width: none;
-    padding: 32px 60px;
+    padding-block: 32px;
+    padding-inline: max(32px, calc((100vw - 1280px) / 2));
     background-color: var(--background-color);
     white-space: initial;
     z-index: 10;
@@ -280,7 +285,7 @@ header nav .nav-sections ul > li > ul > li {
     gap: 0;
   }
 
-  /* 3-column layout when dropdown has a sidebar (li with nested ul) */
+  /* 3-column layout when a row has a nested list (e.g. “Areas of expertise” / “Dive deeper”) */
   header nav .nav-sections .default-content-wrapper > ul > li[aria-expanded='true'] > ul:has(li > ul) {
     grid-template-columns: 300px 350px 1fr;
   }
@@ -311,11 +316,11 @@ header nav .nav-sections ul > li > ul > li {
     content: '';
     position: absolute;
     bottom: 40px;
-    right: 20px;
-    width: 180px;
-    height: 180px;
+    right: 30px;
+    width: 220px;
+    height: 220px;
     background-color: #f0ede9;
-    border-radius: 32px;
+    border-radius: 60px;
     z-index: 0;
   }
 
@@ -328,9 +333,9 @@ header nav .nav-sections ul > li > ul > li {
     content: '';
     position: absolute;
     top: 16px;
-    left: 45%;
+    left: 23%;
     transform: translateX(-50%);
-    width: 110px;
+    width: 120px;
     height: 120px;
     border: 2.5px solid var(--color-brand-red, #c03);
     border-radius: 30%;
@@ -379,6 +384,8 @@ header nav .nav-sections ul > li > ul > li {
   /* CTA button inside promo (strong > a pattern) */
   header nav .nav-sections .default-content-wrapper > ul > li > ul > li:nth-child(2) strong a {
     display: inline-block;
+    box-sizing: border-box;
+    max-width: 100%;
     background-color: var(--color-brand-teal-dark, #033941);
     color: var(--color-text-inverse, #fff);
     border-radius: var(--border-radius-pill, 999px);
@@ -388,6 +395,9 @@ header nav .nav-sections ul > li > ul > li {
     text-align: center;
     text-decoration: none;
     margin-top: 8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   header nav .nav-sections .default-content-wrapper > ul > li > ul > li:nth-child(2) strong a:hover {
@@ -415,7 +425,12 @@ header nav .nav-sections ul > li > ul > li {
     grid-row: 5;
   }
 
-  header nav .nav-sections .default-content-wrapper > ul > li > ul > li:nth-child(8) { grid-row: 6; }
+  /* Same pattern as nth-child(7): if this li is the sidebar (:has(> ul)), never set grid-row here
+   * or it overrides the sidebar span and drops “Dive deeper” to row 6 under the link list. */
+  header nav .nav-sections .default-content-wrapper > ul > li > ul > li:nth-child(8):not(:has(> ul)) {
+    grid-row: 6;
+    align-self: start;
+  }
 
   header nav .nav-sections .default-content-wrapper > ul > li > ul > li:nth-child(9) { grid-row: 7; }
 
@@ -425,9 +440,11 @@ header nav .nav-sections ul > li > ul > li {
   header nav .nav-sections .default-content-wrapper > ul > li > ul > li:has(> ul) {
     grid-column: 3;
     grid-row: 1 / -1;
+
+    /* Match center column link rows (8px top) so the sidebar lines up with the first link */
     padding: 24px 24px 20px;
     background-color: var(--light-color, #f5f5f5);
-    border-radius: var(--border-radius-m, 8px);
+    border-radius: 30px;
     align-self: start;
     font-size: var(--body-font-size-xs, 12px);
     font-weight: 700;
@@ -437,12 +454,18 @@ header nav .nav-sections ul > li > ul > li {
     list-style: none;
   }
 
+  header nav .nav-sections .default-content-wrapper > ul > li > ul > li:has(> ul) p {
+    font-size: 14px;
+  }
+
   header nav .nav-sections .default-content-wrapper > ul > li > ul > li:has(> ul) > ul {
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
     gap: 0;
     margin: 12px 0 0;
     padding: 0;
+    text-align: left;
     text-transform: none;
     font-weight: 400;
     font-size: var(--body-font-size-m, 16px);
@@ -502,6 +525,7 @@ header nav .nav-tools .icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  padding-right: 20px;
 }
 
 header nav .nav-tools .button {
@@ -619,10 +643,12 @@ header .breadcrumbs ol li[aria-current] {
   }
 
   header nav .nav-sections .default-content-wrapper > ul > li > ul > li:nth-child(2) {
-    font-size: 20px;
+    font-size: 22px;
     font-weight:600;
     font-family: var(--font-family-noto-bold);
-    margin-left:40px;
+    margin-left:0;
+    padding-left:0;
+    padding-right:40px;
   }
 
   header nav .nav-sections .nav-drop::after {
@@ -633,7 +659,11 @@ header .breadcrumbs ol li[aria-current] {
   header nav .nav-sections .default-content-wrapper > ul > li > ul > li:first-child {
     min-height: 130px;
     border-right: 1px solid #e2e8eb;
+    padding-left:0;
+  }
 
+  header nav .nav-sections .default-content-wrapper > ul > li > ul > li:first-child picture {
+    margin-left:0;
   }
 }
 
@@ -762,8 +792,20 @@ header nav .nav-sections .default-content-wrapper > ul > li > ul > li:nth-child(
   header nav[aria-expanded='false'] {
     padding-left: 80px;
     padding-right: 80px;
-    width: 100vw;
-    margin:0;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+  }
+
+  /* Slightly tighter middle column on wide tablets; avoid invalid units (was 4cqmin) */
+  header nav .nav-sections .default-content-wrapper > ul > li[aria-expanded='true'] > ul:has(li > ul) {
+    grid-template-columns: 300px minmax(0, 1fr) minmax(220px, 360px);
+  }
+}
+
+@media (width >= 1200px) {
+  header nav .nav-sections .default-content-wrapper > ul > li[aria-expanded='true'] > ul:has(li > ul) {
+    grid-template-columns: 300px 400px 400px;
   }
 }
 
