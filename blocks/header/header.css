@@ -326,12 +326,13 @@ header nav .nav-sections ul > li > ul > li {
   header nav .nav-sections .default-content-wrapper > ul > li > ul > li:first-child::after {
     content: '';
     position: absolute;
-    top: 12px;
-    left: 30px;
-    width: 64px;
-    height: 64px;
+    top: 16px;
+    left: 45%;
+    transform: translateX(-50%);
+    width: 110px;
+    height: 120px;
     border: 2.5px solid var(--color-brand-red, #c03);
-    border-radius: 50%;
+    border-radius: 30%;
     z-index: 0;
   }
 
@@ -339,14 +340,14 @@ header nav .nav-sections ul > li > ul > li {
     display: block;
     position: relative;
     z-index: 1;
-    max-width: 140px;
+    max-width: 130px;
     margin: 0 0 0 40px;
   }
 
   header nav .nav-sections .default-content-wrapper > ul > li > ul > li:first-child img {
     width: 100%;
     height: auto;
-    border-radius: 20px;
+    border-radius: 40px;
     display: block;
   }
 
@@ -360,7 +361,6 @@ header nav .nav-sections ul > li > ul > li {
     padding: 0 24px 24px;
     align-self: end;
     z-index: 3;
-    background-color: #fff;
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -703,6 +703,27 @@ body:has(main .hero, main .section.hero-container, main [data-block-name='hero']
 body:has(main .hero, main .section.hero-container, main [data-block-name='hero']) header .nav-wrapper.nav-wrapper-scrolled nav .nav-tools .icon img,
 body:has(main .hero, main .section.hero-container, main [data-block-name='hero']) header .nav-wrapper.nav-wrapper-scrolled nav .nav-tools .button .icon img {
   filter: none;
+}
+
+/*
+ * Mega promo copy cell (2nd item in panel): stay primary text on white card — do not inherit
+ * hero bar white / currentColor from expanded top-level li or transparent nav.
+ */
+header nav .nav-sections .default-content-wrapper > ul > li > ul > li:nth-child(2) {
+  color: var(--color-text-primary) !important;
+}
+
+header nav .nav-sections .default-content-wrapper > ul > li > ul > li:nth-child(2) a {
+  color: var(--color-text-primary) !important;
+}
+
+header nav .nav-sections .default-content-wrapper > ul > li > ul > li:nth-child(2) a:hover {
+  color: var(--color-brand-teal, #0b6e76) !important;
+}
+
+header nav .nav-sections .default-content-wrapper > ul > li > ul > li:nth-child(2) strong a,
+header nav .nav-sections .default-content-wrapper > ul > li > ul > li:nth-child(2) strong a:hover {
+  color: var(--color-text-inverse, #fff) !important;
 }
 
 @media (width >= 1024px) {
