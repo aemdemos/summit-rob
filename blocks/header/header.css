@@ -269,9 +269,9 @@ header nav .nav-sections ul > li > ul > li {
     left: 0;
     right: 0;
     top: var(--nav-height);
-    width: 100%;
+    width: 90vw;
     max-width: none;
-    padding: 32px 48px;
+    padding: 32px 60px;
     background-color: var(--background-color);
     white-space: initial;
     z-index: 10;
@@ -282,7 +282,7 @@ header nav .nav-sections ul > li > ul > li {
 
   /* 3-column layout when dropdown has a sidebar (li with nested ul) */
   header nav .nav-sections .default-content-wrapper > ul > li[aria-expanded='true'] > ul:has(li > ul) {
-    grid-template-columns: 300px 1fr 260px;
+    grid-template-columns: 300px 350px 1fr;
   }
 
   /* Promo image (1st item) + promo text (2nd item) form left column card */
@@ -294,11 +294,12 @@ header nav .nav-sections ul > li > ul > li {
   /* Promo image item — spans all rows; WHITE background */
   header nav .nav-sections .default-content-wrapper > ul > li > ul > li:first-child {
     grid-row: 1 / -1;
-    padding: 24px 40px 140px;
+    padding: 24px 40px 200px;
     background-color: #fff;
     border-radius: var(--border-radius-m, 8px);
     position: relative;
     overflow: visible;
+    padding-top:20px;
   }
 
   /*
@@ -358,7 +359,7 @@ header nav .nav-sections ul > li > ul > li {
   header nav .nav-sections .default-content-wrapper > ul > li > ul > li:nth-child(2) {
     grid-column: 1;
     grid-row: 1 / -1;
-    padding: 0 24px 24px;
+    padding: 0 24px;
     align-self: end;
     z-index: 3;
     display: flex;
@@ -407,7 +408,12 @@ header nav .nav-sections ul > li > ul > li {
 
   header nav .nav-sections .default-content-wrapper > ul > li > ul > li:nth-child(6) { grid-row: 4; }
 
-  header nav .nav-sections .default-content-wrapper > ul > li > ul > li:nth-child(7) { grid-row: 5; }
+  /* nth-child(7) is often the “Areas of Expertise” sidebar — do not set grid-row here or it
+   * overrides li:has(> ul) { grid-row: 1 / -1 } and drops the box to row 5 with a gap above. */
+
+  header nav .nav-sections .default-content-wrapper > ul > li > ul > li:nth-child(7):not(:has(> ul)) {
+    grid-row: 5;
+  }
 
   header nav .nav-sections .default-content-wrapper > ul > li > ul > li:nth-child(8) { grid-row: 6; }
 
@@ -419,7 +425,7 @@ header nav .nav-sections ul > li > ul > li {
   header nav .nav-sections .default-content-wrapper > ul > li > ul > li:has(> ul) {
     grid-column: 3;
     grid-row: 1 / -1;
-    padding: 20px 24px;
+    padding: 24px 24px 20px;
     background-color: var(--light-color, #f5f5f5);
     border-radius: var(--border-radius-m, 8px);
     align-self: start;
@@ -453,10 +459,11 @@ header nav .nav-sections ul > li > ul > li {
     font-weight: 400;
     color: var(--color-text-primary);
     text-decoration: none;
+    font-family: var(--font-family-noto-regular);
   }
 
   header nav .nav-sections .default-content-wrapper > ul > li > ul > li a:hover {
-    color: var(--color-brand-teal, #0b6e76);
+    text-decoration: underline;
   }
 }
 
@@ -611,9 +618,22 @@ header .breadcrumbs ol li[aria-current] {
     font-size: 16px;
   }
 
+  header nav .nav-sections .default-content-wrapper > ul > li > ul > li:nth-child(2) {
+    font-size: 20px;
+    font-weight:600;
+    font-family: var(--font-family-noto-bold);
+    margin-left:40px;
+  }
+
   header nav .nav-sections .nav-drop::after {
     top: 10px;
     right: 2px;
+  }
+
+  header nav .nav-sections .default-content-wrapper > ul > li > ul > li:first-child {
+    min-height: 130px;
+    border-right: 1px solid #e2e8eb;
+
   }
 }
 
@@ -727,8 +747,35 @@ header nav .nav-sections .default-content-wrapper > ul > li > ul > li:nth-child(
 }
 
 @media (width >= 1024px) {
-  header nav[aria-expanded='true'] {
-    padding-left:80px;
-    padding-right:80px;
+  header {
+    width: 100vw;
+  }
+
+  /* Fixed bar must span the viewport or margin-inline: auto on nav has no room to center */
+  header .nav-wrapper {
+    inset-inline: 0;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  header nav[aria-expanded='true'],
+  header nav[aria-expanded='false'] {
+    padding-left: 80px;
+    padding-right: 80px;
+    width: 100vw;
+    margin:0;
+  }
+}
+
+@media (width >= 1440px) {
+  /* Match both aria values so we beat the 1024px `nav[aria-expanded='true']` padding rule */
+  header nav[aria-expanded='true'],
+  header nav[aria-expanded='false'] {
+    box-sizing: border-box;
+    width: min(100%, 1280px);
+    max-width: 1280px;
+    margin-inline: auto;
+    padding-left: 0;
+    padding-right: 0;
   }
 }
