@@ -121,6 +121,72 @@ function getDirectTextContent(menuItem) {
 
 const MAX_BREADCRUMB_DEPTH = 20;
 
+/** Pixels scrolled before nav bar returns to solid white (hero blend mode only). */
+const HEADER_SOLID_AFTER_SCROLL_Y = 32;
+
+/**
+ * Optional URL for the brand logo when the bar is transparent over the hero (on-dark
+ * treatment: white wordmark, white tile, black “rh”). Set any of:
+ * - Page meta: `<meta name="logo-hero" content="https://…/logo-hero.svg">`
+ * - Nav fragment: `data-logo-hero="https://…"` on `.nav-brand img` or `.nav-brand a`
+ * @param {Element | null} brandLink
+ * @param {HTMLImageElement | null} brandImg
+ * @returns {string}
+ */
+function resolveHeroLogoSrc(brandLink, brandImg) {
+  const fromImg = brandImg?.dataset?.logoHero || brandImg?.getAttribute?.('data-logo-hero');
+  if (fromImg) return new URL(fromImg, window.location.href).href;
+  const fromLink = brandLink?.dataset?.logoHero || brandLink?.getAttribute?.('data-logo-hero');
+  if (fromLink) return new URL(fromLink, window.location.href).href;
+  const rawMeta = getMetadata('logo-hero');
+  const fromMeta = rawMeta.split(',')[0].trim();
+  if (fromMeta) return new URL(fromMeta, window.location.href).href;
+  return '';
+}
+
+/**
+ * When the page has a hero under the fixed header, keep the nav bar transparent at
+ * scroll 0 so the hero image shows through; add solid white bar after slight scroll
+ * or when the mobile menu is open.
+ * @param {HTMLElement} navWrapper
+ * @param {HTMLElement} nav
+ */
+function setupHeroHeaderBlend(navWrapper, nav) {
+  const main = document.querySelector('main');
+  const heroRoot = main?.querySelector('.hero, .section.hero-container, [data-block-name="hero"]');
+  if (!heroRoot) return;
+
+  const brandLink = navWrapper.querySelector('.nav-brand a');
+  const brandImg = navWrapper.querySelector('.nav-brand img');
+  const heroLogoSrc = resolveHeroLogoSrc(brandLink, brandImg);
+
+  const update = () => {
+    const y = window.scrollY || document.documentElement.scrollTop;
+    const mobileMenuOpen = !isDesktop.matches && nav.getAttribute('aria-expanded') === 'true';
+    const solid = y > HEADER_SOLID_AFTER_SCROLL_Y || mobileMenuOpen;
+    navWrapper.classList.toggle('nav-wrapper-scrolled', solid);
+
+    if (heroLogoSrc && brandImg) {
+      if (brandImg.dataset.logoDefaultSrc === undefined) {
+        brandImg.dataset.logoDefaultSrc = brandImg.getAttribute('src') || '';
+      }
+      const next = solid ? brandImg.dataset.logoDefaultSrc : heroLogoSrc;
+      if (brandImg.getAttribute('src') !== next) {
+        brandImg.setAttribute('src', next);
+      }
+      brandImg.toggleAttribute('data-hero-logo-active', !solid);
+    } else if (brandImg) {
+      brandImg.removeAttribute('data-hero-logo-active');
+    }
+  };
+
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+
+  const observer = new MutationObserver(update);
+  observer.observe(nav, { attributes: true, attributeFilter: ['aria-expanded'] });
+}
+
 async function buildBreadcrumbsFromNavTree(nav, currentUrl) {
   const crumbs = [];
 
@@ -246,6 +312,8 @@ export default async function decorate(block) {
   navWrapper.className = 'nav-wrapper';
   navWrapper.append(nav);
   block.append(navWrapper);
+
+  setupHeroHeaderBlend(navWrapper, nav);
 
   if (getMetadata('breadcrumbs').toLowerCase() === 'true') {
     navWrapper.append(await buildBreadcrumbs());

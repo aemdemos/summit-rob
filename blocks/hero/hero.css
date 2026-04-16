@@ -12,6 +12,15 @@
   padding: 0;
 }
 
+/*
+ * Fixed header sits over the document; without overlap, a transparent nav only shows
+ * the page background (white). Pull the first hero section up so the hero image sits
+ * under the nav strip when the bar is transparent at scroll top.
+ */
+body:has(main .hero, main .section.hero-container, main [data-block-name='hero']) main > .section:first-of-type:has(.hero) {
+  margin-top: calc(-1 * var(--header-height));
+}
+
 /* Block container */
 .hero {
   position: relative;
