@@ -146,8 +146,8 @@ function resolveHeroLogoSrc(brandLink, brandImg) {
 
 /**
  * When the page has a hero under the fixed header, keep the nav bar transparent at
- * scroll 0 so the hero image shows through; add solid white bar after slight scroll
- * or when the mobile menu is open.
+ * scroll 0 so the hero image shows through; add solid white bar after slight scroll,
+ * when the mobile menu is open, or when a desktop megamenu is open.
  * @param {HTMLElement} navWrapper
  * @param {HTMLElement} nav
  */
@@ -156,14 +156,19 @@ function setupHeroHeaderBlend(navWrapper, nav) {
   const heroRoot = main?.querySelector('.hero, .section.hero-container, [data-block-name="hero"]');
   if (!heroRoot) return;
 
+  const navSections = nav.querySelector('.nav-sections');
   const brandLink = navWrapper.querySelector('.nav-brand a');
   const brandImg = navWrapper.querySelector('.nav-brand img');
   const heroLogoSrc = resolveHeroLogoSrc(brandLink, brandImg);
 
+  const isDesktopMegamenuOpen = () => isDesktop.matches && !!navSections?.querySelector(
+    ':scope .default-content-wrapper > ul > li[aria-expanded="true"]',
+  );
+
   const update = () => {
     const y = window.scrollY || document.documentElement.scrollTop;
     const mobileMenuOpen = !isDesktop.matches && nav.getAttribute('aria-expanded') === 'true';
-    const solid = y > HEADER_SOLID_AFTER_SCROLL_Y || mobileMenuOpen;
+    const solid = y > HEADER_SOLID_AFTER_SCROLL_Y || mobileMenuOpen || isDesktopMegamenuOpen();
     navWrapper.classList.toggle('nav-wrapper-scrolled', solid);
 
     if (heroLogoSrc && brandImg) {
@@ -181,10 +186,18 @@ function setupHeroHeaderBlend(navWrapper, nav) {
   };
 
   window.addEventListener('scroll', update, { passive: true });
+  isDesktop.addEventListener('change', update);
   update();
 
   const observer = new MutationObserver(update);
   observer.observe(nav, { attributes: true, attributeFilter: ['aria-expanded'] });
+  if (navSections) {
+    observer.observe(navSections, {
+      attributes: true,
+      subtree: true,
+      attributeFilter: ['aria-expanded'],
+    });
+  }
 }
 
 async function buildBreadcrumbsFromNavTree(nav, currentUrl) {

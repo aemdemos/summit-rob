@@ -799,13 +799,13 @@ header nav .nav-sections .default-content-wrapper > ul > li > ul > li:nth-child(
 
   /* Slightly tighter middle column on wide tablets; avoid invalid units (was 4cqmin) */
   header nav .nav-sections .default-content-wrapper > ul > li[aria-expanded='true'] > ul:has(li > ul) {
-    grid-template-columns: 300px minmax(0, 1fr) minmax(220px, 360px);
+    grid-template-columns: 300px 450px minmax(220px, 360px);
   }
 }
 
 @media (width >= 1200px) {
   header nav .nav-sections .default-content-wrapper > ul > li[aria-expanded='true'] > ul:has(li > ul) {
-    grid-template-columns: 300px 400px 400px;
+    grid-template-columns: 300px 500px 400px;
   }
 }
 
