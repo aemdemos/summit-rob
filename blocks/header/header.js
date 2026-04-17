@@ -363,9 +363,9 @@ function toggleSearchOverlay(nav) {
   const links = document.createElement('div');
   links.className = 'nav-search-quick-links';
   [
-    { text: 'Browse jobs', href: '/us/en/jobs' },
-    { text: 'Find your next hire', href: '/us/en/hire-talent/form' },
-    { text: 'Our locations', href: '/us/en/locations' },
+    { text: 'Browse jobs', href: 'https://www.roberthalf.com/us/en/jobs' },
+    { text: 'Find your next hire', href: 'https://www.roberthalf.com/us/en/hire-talent/form' },
+    { text: 'Our locations', href: 'https://www.roberthalf.com/us/en/locations' },
   ].forEach(({ text, href }) => {
     const a = document.createElement('a');
     a.href = href;
