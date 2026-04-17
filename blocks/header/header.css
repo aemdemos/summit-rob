@@ -304,7 +304,8 @@ header nav .nav-sections ul > li > ul > li {
     border-radius: var(--border-radius-m, 8px);
     position: relative;
     overflow: visible;
-    padding-top:20px;
+    padding-top: 20px;
+    align-self: start;
   }
 
   /*
@@ -364,8 +365,8 @@ header nav .nav-sections ul > li > ul > li {
   header nav .nav-sections .default-content-wrapper > ul > li > ul > li:nth-child(2) {
     grid-column: 1;
     grid-row: 1 / -1;
-    padding: 0 24px;
-    align-self: end;
+    padding: 180px 24px 24px;
+    align-self: start;
     z-index: 3;
     display: flex;
     flex-direction: column;
@@ -405,7 +406,7 @@ header nav .nav-sections ul > li > ul > li {
   }
 
   /* Regular dropdown links in center column — explicitly placed in rows */
-  header nav .nav-sections .default-content-wrapper > ul > li > ul > li:not(.nav-mega-card) {
+  header nav .nav-sections .default-content-wrapper > ul > li > ul > li:not(:first-child, :nth-child(2), .nav-mega-card, :has(> ul)) {
     grid-column: 2;
     padding: 8px 0 8px 32px;
   }
