@@ -9,6 +9,14 @@ function closeOnEscape(e) {
     const nav = document.getElementById('nav');
     const navSections = nav.querySelector('.nav-sections');
     if (!navSections) return;
+
+    // Close search overlay if open
+    const searchOverlay = nav.closest('.nav-wrapper')?.querySelector('.nav-search-overlay');
+    if (searchOverlay?.getAttribute('aria-hidden') === 'false') {
+      searchOverlay.setAttribute('aria-hidden', 'true');
+      return;
+    }
+
     const navSectionExpanded = navSections.querySelector('[aria-expanded="true"]');
     if (navSectionExpanded && isDesktop.matches) {
       // eslint-disable-next-line no-use-before-define
@@ -254,6 +262,157 @@ async function buildBreadcrumbs() {
 }
 
 /**
+ * Closes the search overlay on pointer-down outside it (not on the search trigger, which toggles).
+ * @param {Element} navWrapper
+ */
+function bindSearchOverlayOutsideClose(navWrapper) {
+  if (navWrapper.dataset.searchOutsideCloseBound === 'true') return;
+  navWrapper.dataset.searchOutsideCloseBound = 'true';
+
+  document.addEventListener(
+    'pointerdown',
+    (e) => {
+      const overlay = navWrapper.querySelector('.nav-search-overlay');
+      if (!overlay || overlay.getAttribute('aria-hidden') === 'true') return;
+      if (overlay.contains(e.target)) return;
+      const nav = navWrapper.querySelector('#nav');
+      const searchLink = nav?.querySelector('.nav-tools a[href*="search"]');
+      if (searchLink && (e.target === searchLink || searchLink.contains(e.target))) return;
+      overlay.setAttribute('aria-hidden', 'true');
+    },
+    true,
+  );
+}
+
+/**
+ * Builds and toggles the full-width search overlay below the nav bar.
+ * @param {Element} nav
+ */
+function toggleSearchOverlay(nav) {
+  const navWrapper = nav.closest('.nav-wrapper');
+  if (!navWrapper) return;
+  let overlay = navWrapper.querySelector('.nav-search-overlay');
+
+  if (overlay) {
+    const isOpen = overlay.getAttribute('aria-hidden') === 'false';
+    overlay.setAttribute('aria-hidden', isOpen ? 'true' : 'false');
+    if (!isOpen) {
+      overlay.querySelector('input')?.focus();
+    }
+    return;
+  }
+
+  overlay = document.createElement('div');
+  overlay.className = 'nav-search-overlay';
+  overlay.setAttribute('role', 'dialog');
+  overlay.setAttribute('aria-label', 'Search');
+  overlay.setAttribute('aria-hidden', 'false');
+
+  const container = document.createElement('div');
+  container.className = 'nav-search-container';
+
+  // Search icon (built via DOM to avoid innerHTML)
+  const searchIcon = document.createElement('span');
+  searchIcon.className = 'nav-search-icon';
+  // eslint-disable-next-line browser-security/detect-mixed-content, browser-security/no-http-urls
+  const svgNS = 'http://www.w3.org/2000/svg'; // SVG namespace URI (not a network request)
+  const svg = document.createElementNS(svgNS, 'svg');
+  svg.setAttribute('viewBox', '0 0 24 24');
+  svg.setAttribute('fill', 'none');
+  svg.setAttribute('stroke', 'currentColor');
+  svg.setAttribute('stroke-width', '2');
+  svg.setAttribute('stroke-linecap', 'round');
+  svg.setAttribute('stroke-linejoin', 'round');
+  const circle = document.createElementNS(svgNS, 'circle');
+  circle.setAttribute('cx', '11');
+  circle.setAttribute('cy', '11');
+  circle.setAttribute('r', '8');
+  const line = document.createElementNS(svgNS, 'line');
+  line.setAttribute('x1', '21');
+  line.setAttribute('y1', '21');
+  line.setAttribute('x2', '16.65');
+  line.setAttribute('y2', '16.65');
+  svg.append(circle, line);
+  searchIcon.append(svg);
+
+  // Input field
+  const input = document.createElement('input');
+  input.type = 'text';
+  input.className = 'nav-search-input';
+  input.setAttribute('placeholder', 'Search');
+  input.setAttribute('aria-label', 'Search');
+
+  // Search button
+  const btn = document.createElement('a');
+  btn.href = '/us/en/search';
+  btn.className = 'nav-search-button';
+  btn.textContent = 'Search';
+
+  // Input wrapper (icon + input)
+  const inputWrapper = document.createElement('div');
+  inputWrapper.className = 'nav-search-input-wrapper';
+  inputWrapper.append(searchIcon, input);
+
+  // Quick links dropdown
+  const dropdown = document.createElement('div');
+  dropdown.className = 'nav-search-dropdown';
+
+  const heading = document.createElement('h6');
+  heading.textContent = 'Quick Links';
+
+  const links = document.createElement('div');
+  links.className = 'nav-search-quick-links';
+  [
+    { text: 'Browse jobs', href: '/us/en/jobs' },
+    { text: 'Find your next hire', href: '/us/en/hire-talent/form' },
+    { text: 'Our locations', href: '/us/en/locations' },
+  ].forEach(({ text, href }) => {
+    const a = document.createElement('a');
+    a.href = href;
+    a.textContent = text;
+    links.append(a);
+  });
+
+  dropdown.append(heading, links);
+
+  container.append(inputWrapper, btn);
+  const stack = document.createElement('div');
+  stack.className = 'nav-search-stack';
+  stack.append(container, dropdown);
+  overlay.append(stack);
+  navWrapper.append(overlay);
+  bindSearchOverlayOutsideClose(navWrapper);
+
+  // Submit on Enter
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      const q = input.value.trim();
+      if (q) {
+        window.location.href = `/us/en/search?q=${encodeURIComponent(q)}`;
+      }
+    }
+  });
+
+  // Submit on button click
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
+    const q = input.value.trim();
+    if (q) {
+      window.location.href = `/us/en/search?q=${encodeURIComponent(q)}`;
+    }
+  });
+
+  // Close on Escape
+  overlay.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      overlay.setAttribute('aria-hidden', 'true');
+    }
+  });
+
+  input.focus();
+}
+
+/**
  * loads and decorates the header, mainly the nav
  * @param {Element} block The header block element
  */
@@ -291,6 +450,9 @@ export default async function decorate(block) {
           const expanded = navSection.getAttribute('aria-expanded') === 'true';
           toggleAllNavSections(navSections);
           navSection.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+          // Close search overlay when opening a nav section
+          const searchOverlay = nav.closest('.nav-wrapper')?.querySelector('.nav-search-overlay');
+          if (searchOverlay) searchOverlay.setAttribute('aria-hidden', 'true');
         }
       });
     });
@@ -320,9 +482,17 @@ export default async function decorate(block) {
 
   const navTools = nav.querySelector('.nav-tools');
   if (navTools) {
-    const search = navTools.querySelector('a[href*="search"]');
-    if (search && search.textContent === '') {
-      search.setAttribute('aria-label', 'Search');
+    const searchLink = navTools.querySelector('a[href*="search"]');
+    if (searchLink) {
+      if (searchLink.textContent.trim() === '' || searchLink.textContent.trim() === 'Search') {
+        searchLink.setAttribute('aria-label', 'Search');
+      }
+      searchLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        toggleAllNavSections(navSections);
+        // eslint-disable-next-line no-use-before-define
+        toggleSearchOverlay(nav);
+      });
     }
   }
 
