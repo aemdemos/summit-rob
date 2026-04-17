@@ -405,12 +405,12 @@ header nav .nav-sections ul > li > ul > li {
   }
 
   /* Regular dropdown links in center column — explicitly placed in rows */
-  header nav .nav-sections .default-content-wrapper > ul > li > ul > li {
+  header nav .nav-sections .default-content-wrapper > ul > li > ul > li:not(.nav-mega-card) {
     grid-column: 2;
     padding: 8px 0 8px 32px;
   }
 
-  header nav .nav-sections .default-content-wrapper > ul > li > ul > li:nth-child(3) { grid-row: 1; }
+  header nav .nav-sections .default-content-wrapper > ul > li > ul > li:nth-child(3):not(.nav-mega-card) { grid-row: 1; }
 
   header nav .nav-sections .default-content-wrapper > ul > li > ul > li:nth-child(4) { grid-row: 2; }
 
@@ -482,7 +482,7 @@ header nav .nav-sections ul > li > ul > li {
    * JS wraps items 3+ inside .nav-mega-card — a gray rounded 2-column grid
    * spanning the full right area of the dropdown.
    */
-  header nav .nav-sections .default-content-wrapper > ul > li > ul > .nav-mega-card {
+  header nav .nav-sections .default-content-wrapper > ul > li > ul > li.nav-mega-card {
     grid-column: 2 / -1;
     grid-row: 1 / -1;
     background-color: var(--light-color, #f5f5f5);
@@ -493,21 +493,23 @@ header nav .nav-sections ul > li > ul > li {
     gap: 4px 48px;
     align-self: start;
     align-content: start;
+    z-index: 5;
+    position: relative;
   }
 
-  header nav .nav-sections .default-content-wrapper > ul > li > ul > .nav-mega-card > li {
+  header nav .nav-sections .default-content-wrapper > ul > li > ul > li.nav-mega-card > li {
     padding: 8px 0;
     grid-column: auto;
   }
 
-  header nav .nav-sections .default-content-wrapper > ul > li > ul > .nav-mega-card > li a {
+  header nav .nav-sections .default-content-wrapper > ul > li > ul > li.nav-mega-card > li a {
     font-size: var(--body-font-size-m);
     font-weight: 600;
     color: var(--color-text-primary);
     text-decoration: none;
   }
 
-  header nav .nav-sections .default-content-wrapper > ul > li > ul > .nav-mega-card > li a:hover {
+  header nav .nav-sections .default-content-wrapper > ul > li > ul > li.nav-mega-card > li a:hover {
     color: var(--color-brand-teal, #0b6e76);
   }
 

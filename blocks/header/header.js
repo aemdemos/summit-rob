@@ -309,7 +309,7 @@ export default async function decorate(block) {
       const hasSidebar = dropdown.querySelector(':scope > li > ul');
       const items = dropdown.querySelectorAll(':scope > li');
       if (!hasSidebar && items.length >= 8) {
-        const card = document.createElement('div');
+        const card = document.createElement('li');
         card.className = 'nav-mega-card';
         // Move items 3+ (after promo image + promo text) into the card
         [...items].slice(2).forEach((li) => card.append(li));
