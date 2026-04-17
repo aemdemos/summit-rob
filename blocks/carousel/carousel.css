@@ -87,6 +87,11 @@ main .section.carousel-container .carousel-wrapper .carousel .carousel-slides-co
   );
   mask-repeat: no-repeat;
   mask-size: 100% 100%;
+  cursor: grab;
+}
+
+.carousel .carousel-slides:active {
+  cursor: grabbing;
 }
 
 .carousel .carousel-slides::-webkit-scrollbar {

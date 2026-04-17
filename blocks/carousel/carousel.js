@@ -22,6 +22,70 @@ function createSlide(row, slideIndex, carouselId) {
   return slide;
 }
 
+/**
+ * Enables mouse-drag scrolling with momentum on a horizontally scrollable element.
+ * @param {HTMLElement} el The scrollable container
+ */
+function enableMouseDrag(el) {
+  let isDown = false;
+  let startX = 0;
+  let scrollStart = 0;
+  let lastX = 0;
+  let lastTime = 0;
+  let velocity = 0;
+  let momentumId = 0;
+
+  const startMomentum = () => {
+    cancelAnimationFrame(momentumId);
+    const decel = 0.97;
+    const step = () => {
+      if (Math.abs(velocity) < 0.5) return;
+      el.scrollLeft -= velocity;
+      velocity *= decel;
+      momentumId = requestAnimationFrame(step);
+    };
+    momentumId = requestAnimationFrame(step);
+  };
+
+  el.addEventListener('mousedown', (e) => {
+    if (e.target.closest('a, button')) return;
+    cancelAnimationFrame(momentumId);
+    isDown = true;
+    startX = e.pageX;
+    lastX = e.pageX;
+    lastTime = Date.now();
+    scrollStart = el.scrollLeft;
+    velocity = 0;
+    el.style.cursor = 'grabbing';
+    el.style.scrollBehavior = 'auto';
+    el.style.scrollSnapType = 'none';
+    e.preventDefault();
+  });
+
+  el.addEventListener('mousemove', (e) => {
+    if (!isDown) return;
+    const now = Date.now();
+    const dt = now - lastTime || 1;
+    const dx = e.pageX - lastX;
+    velocity = (dx / dt) * 32; // amplified for stronger swipe momentum
+    lastX = e.pageX;
+    lastTime = now;
+    el.scrollLeft = scrollStart - (e.pageX - startX);
+  });
+
+  const stop = () => {
+    if (!isDown) return;
+    isDown = false;
+    el.style.cursor = '';
+    el.style.scrollBehavior = '';
+    el.style.scrollSnapType = '';
+    startMomentum();
+  };
+
+  el.addEventListener('mouseup', stop);
+  el.addEventListener('mouseleave', stop);
+}
+
 export default async function decorate(block) {
   const blockId = getBlockId('carousel');
   block.setAttribute('id', blockId);
@@ -58,6 +122,8 @@ export default async function decorate(block) {
     container.append(controls.buttonsContainer);
   }
   block.prepend(container);
+
+  enableMouseDrag(slidesWrapper);
 
   if (!isSingleSlide) {
     initSlider(block);
