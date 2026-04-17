@@ -22,6 +22,43 @@ function createSlide(row, slideIndex, carouselId) {
   return slide;
 }
 
+/**
+ * Enables mouse-drag scrolling on a horizontally scrollable element.
+ * @param {HTMLElement} el The scrollable container
+ */
+function enableMouseDrag(el) {
+  let isDown = false;
+  let startX = 0;
+  let scrollStart = 0;
+
+  el.addEventListener('mousedown', (e) => {
+    // ignore clicks on buttons / links
+    if (e.target.closest('a, button')) return;
+    isDown = true;
+    startX = e.pageX;
+    scrollStart = el.scrollLeft;
+    el.style.cursor = 'grabbing';
+    el.style.scrollBehavior = 'auto';
+    e.preventDefault();
+  });
+
+  el.addEventListener('mousemove', (e) => {
+    if (!isDown) return;
+    const dx = e.pageX - startX;
+    el.scrollLeft = scrollStart - dx;
+  });
+
+  const stop = () => {
+    if (!isDown) return;
+    isDown = false;
+    el.style.cursor = '';
+    el.style.scrollBehavior = '';
+  };
+
+  el.addEventListener('mouseup', stop);
+  el.addEventListener('mouseleave', stop);
+}
+
 export default async function decorate(block) {
   const blockId = getBlockId('carousel');
   block.setAttribute('id', blockId);
@@ -56,6 +93,9 @@ export default async function decorate(block) {
 
   container.append(slidesWrapper);
   block.prepend(container);
+
+  // Enable mouse drag scrolling
+  enableMouseDrag(slidesWrapper);
 
   if (!isSingleSlide) {
     initSlider(block);

@@ -16,6 +16,11 @@
   scroll-behavior: smooth;
   scroll-snap-type: x mandatory;
   overflow: scroll clip;
+  cursor: grab;
+}
+
+.carousel .carousel-slides:active {
+  cursor: grabbing;
 }
 
 .carousel .carousel-slides::-webkit-scrollbar {
