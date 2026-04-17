@@ -477,6 +477,40 @@ header nav .nav-sections ul > li > ul > li {
     grid-column: auto;
   }
 
+  /*
+   * Many-items card (e.g. "Explore Consulting Solutions").
+   * JS wraps items 3+ inside .nav-mega-card — a gray rounded 2-column grid
+   * spanning the full right area of the dropdown.
+   */
+  header nav .nav-sections .default-content-wrapper > ul > li > ul > .nav-mega-card {
+    grid-column: 2 / -1;
+    grid-row: 1 / -1;
+    background-color: var(--light-color, #f5f5f5);
+    border-radius: 24px;
+    padding: 24px 32px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px 48px;
+    align-self: start;
+    align-content: start;
+  }
+
+  header nav .nav-sections .default-content-wrapper > ul > li > ul > .nav-mega-card > li {
+    padding: 8px 0;
+    grid-column: auto;
+  }
+
+  header nav .nav-sections .default-content-wrapper > ul > li > ul > .nav-mega-card > li a {
+    font-size: var(--body-font-size-m);
+    font-weight: 600;
+    color: var(--color-text-primary);
+    text-decoration: none;
+  }
+
+  header nav .nav-sections .default-content-wrapper > ul > li > ul > .nav-mega-card > li a:hover {
+    color: var(--color-brand-teal, #0b6e76);
+  }
+
   header nav .nav-sections .default-content-wrapper > ul > li > ul > li a {
     font-size: var(--body-font-size-m);
     font-weight: 400;

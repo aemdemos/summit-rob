@@ -300,6 +300,24 @@ export default async function decorate(block) {
     });
   }
 
+  // Restructure dropdowns with many items but no sidebar (e.g. Consulting)
+  // into a 2-column gray card matching the original layout.
+  if (navSections) {
+    navSections.querySelectorAll(':scope .default-content-wrapper > ul > li').forEach((navSection) => {
+      const dropdown = navSection.querySelector(':scope > ul');
+      if (!dropdown) return;
+      const hasSidebar = dropdown.querySelector(':scope > li > ul');
+      const items = dropdown.querySelectorAll(':scope > li');
+      if (!hasSidebar && items.length >= 8) {
+        const card = document.createElement('div');
+        card.className = 'nav-mega-card';
+        // Move items 3+ (after promo image + promo text) into the card
+        [...items].slice(2).forEach((li) => card.append(li));
+        dropdown.append(card);
+      }
+    });
+  }
+
   const navTools = nav.querySelector('.nav-tools');
   if (navTools) {
     const search = navTools.querySelector('a[href*="search"]');
