@@ -37,7 +37,7 @@ function enableMouseDrag(el) {
 
   const startMomentum = () => {
     cancelAnimationFrame(momentumId);
-    const decel = 0.95;
+    const decel = 0.97;
     const step = () => {
       if (Math.abs(velocity) < 0.5) return;
       el.scrollLeft -= velocity;
@@ -67,7 +67,7 @@ function enableMouseDrag(el) {
     const now = Date.now();
     const dt = now - lastTime || 1;
     const dx = e.pageX - lastX;
-    velocity = (dx / dt) * 16; // normalize to ~60fps frame
+    velocity = (dx / dt) * 32; // amplified for stronger swipe momentum
     lastX = e.pageX;
     lastTime = now;
     el.scrollLeft = scrollStart - (e.pageX - startX);
